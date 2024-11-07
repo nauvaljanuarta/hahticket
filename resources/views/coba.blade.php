@@ -1,1 +1,1 @@
- -u 
+iki opo cak
