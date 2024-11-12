@@ -15,12 +15,15 @@ return new class extends Migration
             $table->id();
             $table->string('event_name', 100);
             $table->unsignedBigInteger('event_category');
+            $table->unsignedBigInteger('penyelenggara');
             $table->text('description')->nullable();
             $table->datetime('event_date');
             $table->string('location', 255);
+            $table->string('pic', 110);
             $table->integer('capacity');
             $table->timestamps();
             $table->foreign('event_category')->references('id')->on('event_categories');
+            $table->foreign('penyelenggara')->references('id')->on('users');
         });
     }
 
