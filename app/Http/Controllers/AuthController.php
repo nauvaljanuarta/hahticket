@@ -9,24 +9,27 @@ class AuthController extends Controller
 
     public function onboarding()
     {
-        //
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
+    public function loginview()
+    {
+        return view('auth.login');
+    }
+    public function registerview()
+    {
+        return view('auth.register');
+    }
     public function login()
     {
-        //
+
     }
     public function register()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //

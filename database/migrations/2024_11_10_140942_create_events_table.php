@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->datetime('event_date');
             $table->string('location', 255);
-            $table->string('pic', 110);
+            $table->string('pic', 500);
             $table->integer('capacity');
             $table->timestamps();
             $table->foreign('event_category')->references('id')->on('event_categories');

@@ -11,16 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pembayaran', function (Blueprint $table) {
+        Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('pemesanan_id');
-            $table->unsignedBigInteger('event_ticket_id');
             $table->unsignedBigInteger('jenis_pembayaran');
             $table->integer('jumlah');
             $table->string('status', 20);
             $table->timestamps();
             $table->foreign('pemesanan_id')->references('id')->on('pemesanan');
-            $table->foreign('event_ticket_id')->references('id')->on('event_tickets');
             $table->foreign('jenis_pembayaran')->references('id')->on('jenis_pembayaran');
         });
     }
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pembayaran');
+        Schema::dropIfExists('transaksi');
     }
 };

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('menu_link', 300);
             $table->string('menu_icon', 300);
             $table->unsignedBigInteger('parent_id')->nullable();
-            $table->string('create_by', 30);
             $table->string('delete_mark',1);
+            $table->string('create_by', 30);
             $table->string('update_by', 30);
             $table->timestamps();
 

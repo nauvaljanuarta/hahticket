@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('event_tickets', function (Blueprint $table) {
             $table->id();
             $table->string('ticket_name', 50);
+            $table->text('description');
             $table->unsignedBigInteger('event');
-            $table->integer('jumlah_awal');
-            $table->integer('jumlah_tersedia');
             $table->decimal('price', 10, 2);
             $table->timestamps();
             $table->foreign('event')->references('id')->on('events');

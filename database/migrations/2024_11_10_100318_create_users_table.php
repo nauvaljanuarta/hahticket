@@ -19,12 +19,12 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // Create 'users' table
+
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('username', 40);
             $table->string('email', 40);
-            $table->string('password', 40);
+            $table->string('password');
             $table->string('no_hp', 15);
             $table->string('create_by', 15);
             $table->string('update_by', 15);
