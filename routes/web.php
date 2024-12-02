@@ -21,4 +21,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
 
 
-Route::get('/register', [CustomerController::class, 'index']);
+Route::get('/dashboard', [CustomerController::class, 'index']);
+
+Route::get('/dashboard', [CustomerController::class, 'registerview'])->name('register.view');
+
