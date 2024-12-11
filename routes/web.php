@@ -8,3 +8,6 @@ Route::get('/', function () {
 Route::get('/coba', function () {
     return view('coba');
 });
+Route::get('/dashboard', function () {
+    return view('admin.dashboard');
+});
