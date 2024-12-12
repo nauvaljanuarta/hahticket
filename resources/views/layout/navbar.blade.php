@@ -5,7 +5,7 @@
                 <li class="nav-item d-none d-xl-block">
                     <a href="/dashboard" class="text-nowrap nav-link">
                         <div style="padding: 10px;">
-                            <img src="../assets/images/logos/hahticket.svg" class="dark-logo" width="200"
+                            <img src="{{ asset('../assets/images/logos/hahkecil1.svg') }}" class="dark-logo" width="200"
                                 alt="hahticket" />
                         </div>
                     </a>

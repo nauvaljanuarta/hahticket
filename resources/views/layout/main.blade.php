@@ -8,20 +8,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Favicon icon-->
-    <link rel="shortcut icon" type="image/png" href="../assets/images/logos/logoticket.png" />
+    <link rel="shortcut icon" type="image/png" href="{{asset('../assets/images/logos/logoticket.png')}}" />
 
     <!-- Core Css -->
-    <link rel="stylesheet" href="../assets/css/styles.css" />
+    <link rel="stylesheet" href="{{asset('../assets/css/styles.css')}}" />
 
     <title>Hahticket?!</title>
     <!-- jvectormap  -->
-    <link rel="stylesheet" href="../assets/libs/jvectormap/jquery-jvectormap.css">
+    <link rel="stylesheet" href="{{asset('../assets/libs/jvectormap/jquery-jvectormap.css')}}">
 </head>
 
 <body>
     <!-- Preloader -->
     <div class="preloader">
-        <img src="{../assets/images/logos/loader.svg}" alt="loader" class="lds-ripple img-fluid" />
+        <img src="{{asset('../assets/images/logos/loader.svg')}}" alt="loader" class="lds-ripple img-fluid" />
     </div>
 
     <div id="main-wrapper">
