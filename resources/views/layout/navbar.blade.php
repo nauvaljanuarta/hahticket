@@ -586,9 +586,12 @@
                                     </div>
 
                                     <div class="py-6 px-7 mb-1">
-                                        <a href="../dark/authentication-login.html" class="btn btn-primary w-100">Log
-                                            Out</a>
+                                        <form action="{{ route('logout') }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-primary w-100">Log Out</button>
+                                        </form>
                                     </div>
+
                                 </div>
                             </div>
                         </li>

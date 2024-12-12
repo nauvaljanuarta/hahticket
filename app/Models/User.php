@@ -11,6 +11,7 @@ class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
+    use Notifiable;
 
     protected $fillable = [
         'username',
@@ -31,8 +32,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function jenisUser()
+    public function jenis_user()
     {
-        return $this->belongsTo(JenisUser::class, 'jenis_user_id');
+        return $this->belongsTo(JenisUser::class, 'jenis_user_id'); // Pastikan 'jenis_user_id' adalah kolom yang benar
+    }
+    public function hasRole($role)
+    {
+        return $this->jenisUser && $this->jenisUser->jenis_user === $role;
     }
 }

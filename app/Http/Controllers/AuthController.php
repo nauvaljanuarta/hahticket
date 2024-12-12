@@ -6,7 +6,6 @@ use App\Models\JenisUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -24,7 +23,15 @@ class AuthController extends Controller
     {
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect('/dashboard'); // Redirect after login
+            $user = Auth::user();
+
+            if ($user->jenis_user_id == 1) {
+                return redirect()->intended('/admin/dashboard')->with('success', 'Welcome Admin!');
+            } elseif ($user->jenis_user_id == 3) {
+                return redirect()->intended('/event/dashboard')->with('success', 'Welcome Event Organizer!');
+            }
+
+            return redirect()->intended('/dashboard')->with('success', 'Welcome Customer!');
         }
 
         return back()->withErrors(['login_error' => 'Invalid credentials']);
@@ -38,7 +45,7 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-       
+
 
 
         // Create new user
@@ -48,9 +55,9 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             'no_hp' => $request->no_hp,
             'jenis_user_id' => 2,
-            'create_by' => 'system', // Add user creation logic
-            'created_at' => now(), // Add user creation logic
-            'update_by' => 'system', // Add user update logic
+            'create_by' => 'system',
+            'created_at' => now(),
+            'update_by' => 'system',
             'updated_at' => now(), // Add user creation logic
         ]);
 
@@ -59,9 +66,12 @@ class AuthController extends Controller
         return redirect()->route('loginview'); // Redirect to dashboard after registration
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        Auth::logout();
-        return redirect()->route('login');
+        Auth::logout(); // Log the user out
+
+        $request->session()->invalidate(); // Invalidate the session
+        $request->session()->regenerateToken(); // Regenerate the CSRF token
+        return redirect()->route('loginview');
     }
 }

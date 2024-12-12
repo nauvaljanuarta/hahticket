@@ -17,6 +17,6 @@ class JenisUser extends Model
 
     public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class, 'jenis_user_id');
     }
 }
