@@ -8,12 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Favicon icon-->
-    <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
+    <link rel="shortcut icon" type="image/png" href="../assets/images/logos/logoticket.png" />
 
     <!-- Core Css -->
     <link rel="stylesheet" href="../assets/css/styles.css" />
 
-    <title>Spike Bootstrap Admin</title>
+    <title>Hahticket?!</title>
     <!-- jvectormap  -->
     <link rel="stylesheet" href="../assets/libs/jvectormap/jquery-jvectormap.css">
 </head>
@@ -21,7 +21,7 @@
 <body>
     <!-- Preloader -->
     <div class="preloader">
-        <img src="../assets/images/logos/loader.svg" alt="loader" class="lds-ripple img-fluid" />
+        <img src="{../assets/images/logos/loader.svg}" alt="loader" class="lds-ripple img-fluid" />
     </div>
 
     <div id="main-wrapper">
@@ -211,22 +211,22 @@
     </div>
     <div class="dark-transparent sidebartoggler"></div>
     </div>
-    <script src="../assets/js/vendor.min.js"></script>
+    <script src="{{asset('../assets/js/vendor.min.js')}}"></script>
     <!-- Import Js Files -->
-    <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../assets/libs/simplebar/dist/simplebar.min.js"></script>
-    <script src="../assets/js/theme/app.init.js"></script>
-    <script src="../assets/js/theme/theme.js"></script>
-    <script src="../assets/js/theme/app.min.js"></script>
-    <script src="../assets/js/theme/sidebarmenu.js"></script>
-    <script src="../assets/js/theme/feather.min.js"></script>
+    <script src="{{asset('../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('../assets/libs/simplebar/dist/simplebar.min.js')}}"></script>
+    <script src="{{asset('../assets/js/theme/app.init.js')}}"></script>
+    <script src="{{asset('../assets/js/theme/theme.js')}}"></script>
+    <script src="{{asset('../assets/js/theme/app.min.js')}}"></script>
+    <script src="{{asset('../assets/js/theme/sidebarmenu.js')}}"></script>
+    <script src="{{asset('../assets/js/theme/feather.min.js')}}"></script>
 
     <!-- solar icons -->
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
-    <script src="../assets/libs/jvectormap/jquery-jvectormap.min.js"></script>
-    <script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
-    <script src="../assets/js/extra-libs/jvectormap/jquery-jvectormap-us-aea-en.js"></script>
-    <script src="../assets/js/dashboards/dashboard.js"></script>
+    <script src="{{asset('../assets/libs/jvectormap/jquery-jvectormap.min.js')}}"></script>
+    <script src="{{asset('../assets/libs/apexcharts/dist/apexcharts.min.js')}}"></script>
+    <script src="{{asset('../assets/js/extra-libs/jvectormap/jquery-jvectormap-us-aea-en.js')}}"></script>
+    <script src="{{asset('../assets/js/dashboards/dashboard.js')}}"></script>
 </body>
 
 </html>
