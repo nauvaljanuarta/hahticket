@@ -29,7 +29,8 @@
                     data-simplebar>
                     <div class="card-body">
                         <a href="../dark/index.html" class="">
-                            <img src="../assets/images/logos/hahkecil1.svg" class="dark-logo" alt="Logo-dark" style="width: 300px; height: auto;" />
+                            <img src="../assets/images/logos/hahkecil1.svg" class="dark-logo" alt="Logo-dark"
+                                style="width: 300px; height: auto;" />
                         </a>
 
                         <div class="row align-items-center justify-content-around pt-6 pb-5">
@@ -40,54 +41,40 @@
                                 </div>
                             </div>
                             <div class="col-lg-6 col-xl-5">
-                                <h2 class="mb-6 fs-8 fw-bolder">Welcome to Spike Admin</h2>
-                                <p class="text-dark fs-4 mb-7">Your Admin Dashboard</p>
-                                <div class="d-flex align-items-center gap-3">
-                                    <a class="btn btn-white w-100 text-dark border fw-bold d-flex align-items-center justify-content-center rounded-1 py-6 shadow-none"
-                                        href="javascript:void(0)" role="button">
-                                        <img src="../assets/images/svgs/google-icon.svg" alt=""
-                                            class="img-fluid me-7" width="24" height="24" />
-                                        <span class="d-none d-sm-block me-1 flex-shrink-0">Sign in with</span>Google
-                                    </a>
-                                    <a class="btn btn-white w-100 text-dark border fw-bold d-flex align-items-center justify-content-center rounded-1 py-6 shadow-none"
-                                        href="javascript:void(0)" role="button">
-                                        <img src="../assets/images/svgs/icon-facebook.svg" alt=""
-                                            class="img-fluid me-2" width="24" height="24" />
-                                        <span class="d-none d-sm-block me-1 flex-shrink-0">Sign in with</span>FB
-                                    </a>
-                                </div>
-                                <div class="position-relative text-center my-7">
-                                    <p class="mb-0 fs-3 px-3 d-inline-block bg-white z-1 position-relative">
-                                        or sign Up with
-                                    </p>
-                                    <span
-                                        class="border-top w-100 position-absolute top-50 start-50 translate-middle"></span>
-                                </div>
-                                <form>
+                                <h2 class="mb-6 fs-8 fw-bolder">Welcome to Hahticket?!</h2>
+                                <p class="text-dark fs-4 mb-7">Be Our Beloved Consumer</p>
+
+                                <form method="POST" action="{{ route('register') }}">
+                                    @csrf
                                     <div class="mb-7">
-                                        <label for="inputexample" class="form-label text-dark fw-bold">Name</label>
-                                        <input class="form-control py-6" id="inputexample" type="text" placeholder=""
-                                            aria-label="inputexample" />
+                                        <label for="inputexample" class="form-label text-dark fw-bold">Username</label>
+                                        <input class="form-control py-6" id="inputexample" name="username"
+                                            type="text" aria-label="inputexample" />
+                                    </div>
+                                    <div class="mb-9">
+                                        <label for="exampleInputNumber"
+                                        class="form-label text-dark fw-bold">Phone Number</label>
+                                        <input type="number" class="form-control py-6" name="no_hp"
+                                        id="exampleInputNumber1" />
                                     </div>
                                     <div class="mb-7">
                                         <label for="exampleInputEmail1" class="form-label text-dark fw-bold">Email
                                             address</label>
-                                        <input type="email" class="form-control py-6" id="exampleInputEmail1"
-                                            aria-describedby="emailHelp" />
+                                        <input type="email" class="form-control py-6" name="email"
+                                            id="exampleInputEmail1" aria-describedby="emailHelp" />
                                     </div>
                                     <div class="mb-9">
                                         <label for="exampleInputPassword1"
-                                            class="form-label text-dark fw-bold">Password</label>
-                                        <input type="password" class="form-control py-6" id="exampleInputPassword1" />
+                                        class="form-label text-dark fw-bold">Password</label>
+                                        <input type="password" class="form-control py-6" name="password"
+                                        id="exampleInputPassword1" />
                                     </div>
-                                    <a href="../dark/authentication-login.html"
-                                        class="btn btn-primary w-100 mb-7 rounded-pill">Sign Up</a>
+                                    <button type="input" class="btn btn-primary w-100 mb-7 rounded-pill">Sign Up</button>
                                     <div class="d-flex align-items-center">
                                         <p class="fs-3 mb-0 fw-medium">
                                             Already have an Account?
                                         </p>
-                                        <a class="text-primary fw-bold ms-2 fs-3"
-                                            href="/login">Sign In</a>
+                                        <a class="text-primary fw-bold ms-2 fs-3" href="/login">Sign In</a>
                                     </div>
                                 </form>
                             </div>

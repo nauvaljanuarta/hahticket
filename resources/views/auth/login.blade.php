@@ -39,8 +39,8 @@
                                 </div>
                             </div>
                             <div class="col-lg-6 col-xl-5">
-                                <h2 class="mb-6 fs-8 fw-bolder">Welcome to Spike Admin</h2>
-                                <p class="text-dark fs-4 mb-7">Your Admin Dashboard</p>
+                                <h2 class="mb-6 fs-8 fw-bolder">Welcome to Hahticket?!</h2>
+                                <p class="text-dark fs-4 mb-7">Your Event All Here!!</p>
                                 <div class="d-flex align-items-center gap-3">
                                     <a class="btn btn-white w-100 text-dark border fw-bold d-flex align-items-center justify-content-center rounded-1 py-6 shadow-none"
                                         href="javascript:void(0)" role="button">
@@ -62,17 +62,18 @@
                                     <span
                                         class="border-top w-100 position-absolute top-50 start-50 translate-middle"></span>
                                 </div>
-                                <form>
+                                <form method="POST" action="{{ route('login') }}">
+                                    @csrf
                                     <div class="mb-7">
                                         <label for="exampleInputEmail1"
-                                            class="form-label text-dark fw-bold">Username</label>
-                                        <input type="email" class="form-control py-6" id="exampleInputEmail1"
+                                            class="form-label text-dark fw-bold">Email</label>
+                                        <input type="email" class="form-control py-6" name="email" id="exampleInputEmail1"
                                             aria-describedby="emailHelp" />
                                     </div>
                                     <div class="mb-9">
                                         <label for="exampleInputPassword1"
                                             class="form-label text-dark fw-bold">Password</label>
-                                        <input type="password" class="form-control py-6" id="exampleInputPassword1" />
+                                        <input type="password" class="form-control py-6" name="password" id="exampleInputPassword1" />
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between mb-7 pb-1">
                                         <div class="form-check">
@@ -82,11 +83,8 @@
                                                 Remeber this Device
                                             </label>
                                         </div>
-                                        <a class="text-primary fw-medium fs-3 fw-bold"
-                                            href="../dark/authentication-forgot-password.html">Forgot Password ?</a>
                                     </div>
-                                    <a href="../dark/index.html" class="btn btn-primary w-100 mb-7 rounded-pill">Sign
-                                        In</a>
+                                    <button type="submit" class="btn btn-primary w-100 mb-7 rounded-pill">Sign In</button>
                                     <div class="d-flex align-items-center">
                                         <p class="fs-3 mb-0 fw-medium">New to Spike?</p>
                                         <a class="text-primary fw-bold ms-2 fs-3"
