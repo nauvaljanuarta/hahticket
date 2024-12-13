@@ -12,7 +12,7 @@ class RoleMiddleware
     public function handle(Request $request, Closure $next, $role)
     {
         if (!Auth::check()) {
-            return redirect()->route('loginview')->with('error', 'You must be logged in to access this page.');
+            return redirect('/login')->with('error', 'You must be logged in to access this page.');
         }
 
         $userRole = Auth::user()->jenis_user->jenis_user; // Mengambil role user

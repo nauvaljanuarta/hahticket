@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Middleware\RoleMiddleware;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
@@ -10,7 +10,7 @@ use App\Http\Controllers\EventController;
 // General routes
 Route::get('/', [AuthController::class, 'index'])->name('landing');
 Route::get('/login', [AuthController::class, 'loginview'])->name('loginview');
-Route::post('/login/post', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/register', [AuthController::class, 'registerview'])->name('registerview');
 Route::post('/register/post', [AuthController::class, 'register'])->name('register');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

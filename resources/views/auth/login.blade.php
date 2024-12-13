@@ -62,7 +62,7 @@
                                     <span
                                         class="border-top w-100 position-absolute top-50 start-50 translate-middle"></span>
                                 </div>
-                                <form method="POST" action="{{ route('login') }}">
+                                <form method="POST" action="/login">
                                     @csrf
                                     <div class="mb-7">
                                         <label for="exampleInputEmail1"
