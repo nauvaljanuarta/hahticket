@@ -9,6 +9,8 @@ class JenisUser extends Model
 {
     use HasFactory;
 
+    protected $table = 'jenis_users';
+    protected $primaryKey = 'id';
     protected $fillable = [
         'jenis_user',
         'create_by',

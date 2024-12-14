@@ -7,6 +7,10 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EventController;
 
+
+Route::get('/coba', function () {
+    return view ('coba');
+});
 // General routes
 Route::get('/', [AuthController::class, 'index'])->name('landing');
 Route::get('/login', [AuthController::class, 'loginview'])->name('loginview');
@@ -20,6 +24,12 @@ Route::middleware(['auth'])->group(function () {
     // Admin routes
     Route::middleware(['role:Admin'])->group(function () {
         Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+
+        //user
+        Route::get('/admin/user',[UserController::class,'index']);
+        Route::post('/admin/user/add',[UserController::class,'store'])->name('user.add');
+        Route::put('/admin/user/edit/{id}',[UserController::class,'edit'])->name('user.edit');
+        Route::delete('/admin/user/delete/{id}',[UserController::class,'destroy'])->name('user.destroy');
     });
 
     // EO (Event Organizer) routes
