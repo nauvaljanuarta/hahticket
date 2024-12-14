@@ -504,10 +504,10 @@
 
                                     <div class="d-none d-sm-block">
                                         <h6 class="fw-bold fs-4 mb-1 profile-name">
-                                            Mike Nielsen
+                                            {{ Auth::user()->username }}
                                         </h6>
                                         <p class="fs-3 lh-base mb-0 profile-subtext">
-                                            Admin
+                                            {{ Auth::user()->jenis_user->jenis_user }}
                                         </p>
                                     </div>
                                 </div>
@@ -527,12 +527,12 @@
                                         <img src="../assets/images/profile/user-1.jpg" alt="user" width="90"
                                             class="rounded-circle" />
                                         <div class="ms-4">
-                                            <h4 class="mb-0 fs-5 fw-normal">Mike Nielsen</h4>
-                                            <span class="text-muted">super admin</span>
+                                            <h4 class="mb-0 fs-5 fw-normal"> {{ Auth::user()->username }}</h4>
+                                            <span class="text-muted"> {{ Auth::user()->jenis_user->jenis_user }}</span>
                                             <p class="text-muted mb-0 mt-1 d-flex align-items-center">
                                                 <iconify-icon icon="solar:mailbox-line-duotone"
                                                     class="fs-4 me-1"></iconify-icon>
-                                                info@spike.com
+                                                hahticket@company.com
                                             </p>
                                         </div>
                                     </div>

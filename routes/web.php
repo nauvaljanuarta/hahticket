@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\CustomerController;
 
 
 Route::get('/coba', function () {
@@ -46,7 +47,7 @@ Route::middleware(['auth'])->group(function () {
 
     // General user routes (hanya untuk role selain Admin dan EO)
     Route::middleware(['user'])->group(function () {
-        Route::get('/dashboard', [UserController::class, 'index'])->name('user.dashboard');
+        Route::get('/dashboard', [CustomerController::class, 'index'])->name('user.dashboard');
     });
 
     // Anda bisa menambahkan rute lainnya nanti
