@@ -13,17 +13,10 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return view('admin.role');
+        $roles = JenisUser::all();
+        return view('admin.role',compact('roles'));
     }
 
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -32,32 +25,13 @@ class RoleController extends Controller
 
         JenisUser::create([
             'jenis_user' => $request->jenis_user,
-            'create_by' => Auth::user(),
-            'update_by' => Auth::user(),
+            'create_by' => Auth::user()->username,
+            'update_by' => Auth::user()->username,
         ]);
 
         return redirect()->back()->with('success', 'Role successfully created');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $role = JenisUser::findOrFail($id);
@@ -66,17 +40,14 @@ class RoleController extends Controller
             'update_by' => Auth::user(),
         ]);
 
-        return redirect()->route('role.index')->with('success', 'Role successfully updated');
+        return redirect()->back()->with('success', 'Role successfully updated');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $role = JenisUser::findOrFail($id);
         $role->delete();
 
-        return redirect()->route('role.index')->with('success', 'Role successfully deleted');
+        return redirect()->back()->with('success', 'Role successfully deleted');
     }
 }

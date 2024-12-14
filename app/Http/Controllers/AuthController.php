@@ -2,7 +2,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\JenisUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -24,7 +23,6 @@ class AuthController extends Controller
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
-
             if ($user->jenis_user_id == 1) {
                 return redirect()->intended('/admin/dashboard')->with('success', 'Welcome Admin!');
             } elseif ($user->jenis_user_id == 3) {

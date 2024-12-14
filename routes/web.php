@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\RoleController;
 
 
 Route::get('/coba', function () {
@@ -27,9 +28,15 @@ Route::middleware(['auth'])->group(function () {
 
         //user
         Route::get('/admin/user',[UserController::class,'index']);
-        Route::post('/admin/user/add',[UserController::class,'store'])->name('user.add');
-        Route::put('/admin/user/edit/{id}',[UserController::class,'edit'])->name('user.edit');
+        Route::post('/admin/user/add',[UserController::class,'store'])->name('user.store');
+        Route::put('/admin/user/edit/{id}',[UserController::class,'update'])->name('user.update');
         Route::delete('/admin/user/delete/{id}',[UserController::class,'destroy'])->name('user.destroy');
+
+        //role
+        Route::get('/admin/role',[RoleController::class,'index']);
+        Route::post('/admin/role/add',[RoleController::class,'store'])->name('role.store');
+        Route::put('/admin/role/edit/{id}',[RoleController::class,'update'])->name('role.update');
+        Route::delete('/admin/role/delete/{id}',[RoleController::class,'destroy'])->name('role.destroy');
     });
 
     // EO (Event Organizer) routes

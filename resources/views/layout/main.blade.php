@@ -16,6 +16,7 @@
     <title>Hahticket?!</title>
     <!-- jvectormap  -->
     <link rel="stylesheet" href="{{asset('../assets/libs/jvectormap/jquery-jvectormap.css')}}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
