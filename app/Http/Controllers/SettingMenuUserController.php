@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Menu;
+use App\Models\SettingMenuUser;
 use Illuminate\Http\Request;
-class EventController extends Controller
+
+class SettingMenuUserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $menus = Menu::with('level', 'parent')->whereNull('parent_id')->get();
-        return view ('event.dashboard', compact('menus'));
+        //
     }
 
     /**
@@ -34,7 +34,7 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(SettingMenuUser $settingMenuUser)
     {
         //
     }
@@ -42,7 +42,7 @@ class EventController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(SettingMenuUser $settingMenuUser)
     {
         //
     }
@@ -50,7 +50,7 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, SettingMenuUser $settingMenuUser)
     {
         //
     }
@@ -58,7 +58,7 @@ class EventController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(SettingMenuUser $settingMenuUser)
     {
         //
     }

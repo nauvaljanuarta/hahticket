@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Menu;
 use App\Models\JenisUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class RoleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $roles = JenisUser::all();
-        return view('admin.role',compact('roles'));
+        $menus = Menu::with('level', 'parent')->whereNull('parent_id')->get();
+        return view('admin.role',compact('roles','menus'));
     }
 
     public function store(Request $request)

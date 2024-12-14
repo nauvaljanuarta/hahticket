@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Menu;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -11,7 +11,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard');
+        $menus = Menu::with('level', 'parent')->whereNull('parent_id')->get();
+        return view('admin.dashboard',compact('menus'));
     }
 
     public function create()

@@ -2,54 +2,29 @@
     <div>
         <nav class="sidebar-nav scroll-sidebar container-fluid">
             <ul id="sidebarnav">
-                <li class="sidebar-item">
-                    <a class="sidebar-link has-arrow primary-hover-bg" href="#" aria-expanded="false">
-                        <iconify-icon icon="solar:atom-line-duotone" class="fs-6 aside-icon"></iconify-icon>
-                        <span class="hide-menu ps-1">Dashboard</span>
-                    </a>
-                    <ul aria-expanded="false" class="collapse first-level">
-                        <li class="sidebar-item">
-                            <a href="../dark/index.html" class="sidebar-link">
-                                <span class="sidebar-icon"></span>
-                                <span class="hide-menu text-truncate">Dashboard</span>
-                            </a>
-                        </li>
+                @foreach($menus as $menu)
+                    <li class="sidebar-item">
+                        <!-- Parent Menu Link -->
+                        <a class="sidebar-link has-arrow primary-hover-bg" href="{{ $menu->menu_link }}" aria-expanded="false">
+                            <iconify-icon icon="{{ $menu->menu_icon }}" class="fs-6 aside-icon"></iconify-icon>
+                            <span class="hide-menu ps-1">{{ $menu->menu_name }}</span>
+                        </a>
 
-                        <li class="sidebar-item">
-                            <a href="../dark/index2.html" class="sidebar-link">
-                                <span class="sidebar-icon"></span>
-                                <span class="hide-menu text-truncate">Dashboard 2</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link has-arrow primary-hover-bg" href="#" aria-expanded="false">
-                        <iconify-icon icon="solar:tuning-square-line-duotone" class="fs-6 aside-icon"></iconify-icon>
-                        <span class="hide-menu ps-1">Master</span>
-                    </a>
-                    <ul aria-expanded="false" class="collapse first-level">
-                        <li class="sidebar-item">
-                            <a href="/admin/user" class="sidebar-link">
-                                <span class="sidebar-icon"></span>
-                                <span class="hide-menu text-truncate">User</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a href="/admin/role" class="sidebar-link">
-                                <span class="sidebar-icon"></span>
-                                <span class="hide-menu text-truncate">Role</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link primary-hover-bg" href="#" aria-expanded="false">
-                        <iconify-icon icon="solar:tuning-square-line-duotone" class="fs-6 aside-icon"></iconify-icon>
-                        <span class="hide-menu ps-1">Main</span>
-                    </a>
-                </li>
+                        <!-- Check if this menu has any children (submenus) -->
+                        @if($menu->children->count() > 0)
+                            <ul aria-expanded="false" class="collapse first-level">
+                                @foreach($menu->children as $submenu)
+                                    <li class="sidebar-item">
+                                        <a href="{{ $submenu->menu_link }}" class="sidebar-link">
+                                            <span class="sidebar-icon"></span>
+                                            <span class="hide-menu text-truncate">{{ $submenu->menu_name }}</span>
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </li>
+                @endforeach
             </ul>
         </nav>
     </div>

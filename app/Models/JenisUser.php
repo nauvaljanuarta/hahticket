@@ -21,4 +21,9 @@ class JenisUser extends Model
     {
         return $this->hasMany(User::class, 'jenis_user_id');
     }
+
+    public function menus()
+    {
+        return $this->belongsToMany(Menu::class, 'setting_menu_users', 'id_jenis_user', 'menu_id');
+    }
 }

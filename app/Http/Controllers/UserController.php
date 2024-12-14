@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\JenisUser;
 use App\Models\User;
+use App\Models\Menu;
+use App\Models\JenisUser;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
@@ -13,7 +14,8 @@ class UserController extends Controller
     {
         $users = User::with('jenis_user')->get();
         $roles = JenisUser::all();
-        return view('admin.user',compact('users', 'roles'));
+        $menus = Menu::with('level', 'parent')->whereNull('parent_id')->get();
+        return view('admin.user',compact('users', 'roles', 'menus'));
     }
 
 
