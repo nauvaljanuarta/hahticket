@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\Auth;
 
 class RoleController extends Controller
 {
-
     public function index()
     {
         $roles = JenisUser::all();
-        $menus = Menu::with('level', 'parent')->whereNull('parent_id')->get();
-        return view('admin.role',compact('roles','menus'));
+        $assignedMenus = Auth::user()->jenisuser->menus()->pluck('menus.id')->toArray();
+        $menus = Menu::with('children')->whereNull('parent_id')->get();
+        return view('admin.role', compact('roles', 'menus', 'assignedMenus'));
     }
 
     public function store(Request $request)

@@ -507,7 +507,7 @@
                                             {{ Auth::user()->username }}
                                         </h6>
                                         <p class="fs-3 lh-base mb-0 profile-subtext">
-                                            {{ Auth::user()->jenis_user->jenis_user }}
+                                            {{ Auth::user()->jenisuser->jenis_user }}
                                         </p>
                                     </div>
                                 </div>
@@ -528,7 +528,7 @@
                                             class="rounded-circle" />
                                         <div class="ms-4">
                                             <h4 class="mb-0 fs-5 fw-normal"> {{ Auth::user()->username }}</h4>
-                                            <span class="text-muted"> {{ Auth::user()->jenis_user->jenis_user }}</span>
+                                            <span class="text-muted"> {{ Auth::user()->jenisuser->jenis_user }}</span>
                                             <p class="text-muted mb-0 mt-1 d-flex align-items-center">
                                                 <iconify-icon icon="solar:mailbox-line-duotone"
                                                     class="fs-4 me-1"></iconify-icon>

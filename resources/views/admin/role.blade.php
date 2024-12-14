@@ -39,6 +39,7 @@
                             <th>Role</th>
                             <th>Created by</th>
                             <th>Updated by</th>
+                            <th>Assigned Menus</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -48,6 +49,14 @@
                                 <td>{{ $role->jenis_user }}</td>
                                 <td>{{ $role->create_by }}</td>
                                 <td>{{ $role->update_by }}</td>
+                                <td>
+                                    <!-- Show Assigned Menus -->
+                                    <ul>
+                                        @foreach ($role->menus as $menu)
+                                            <li>{{ $menu->menu_name }}</li>
+                                        @endforeach
+                                    </ul>
+                                </td>
                                 <td>
                                     <!-- Edit Button -->
                                     <button type="button" class="btn btn-warning btn-sm"
@@ -60,6 +69,9 @@
                                         <button type="submit" class="btn btn-danger btn-sm"
                                             onclick="return confirm('Apakah Anda yakin?')">Hapus</button>
                                     </form>
+
+                                    <!-- Button to Navigate to Settings Page for Assigned Menus -->
+                                    <a href="{{ route('role.settings', $role->id) }}" class="btn btn-info btn-sm ">Set Menu</a>
                                 </td>
                             </tr>
                         @endforeach

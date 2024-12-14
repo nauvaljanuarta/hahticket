@@ -12,12 +12,11 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::with('jenis_user')->get();
-        $roles = JenisUser::all();
-        $menus = Menu::with('level', 'parent')->whereNull('parent_id')->get();
-        return view('admin.user',compact('users', 'roles', 'menus'));
+        $users = User::with('jenisuser')->get();
+        $assignedMenus = Auth::user()->jenisuser->menus()->pluck('menus.id')->toArray();
+        $menus = Menu::with('children')->whereNull('parent_id')->get();
+        return view('admin.user', compact('users', 'menus', 'assignedMenus'));
     }
-
 
     public function store(Request $request)
     {
@@ -33,7 +32,6 @@ class UserController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'User created successfully!');
-
     }
 
     public function update(Request $request, $id)
@@ -59,7 +57,6 @@ class UserController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'User updated successfully!');
-
     }
 
     /**

@@ -9,16 +9,10 @@ class Menu extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'id_level',
-        'menu_name',
-        'menu_link',
-        'menu_icon',
-        'parent_id',
-        'delete_mark',
-        'create_by',
-        'update_by',
-    ];
+    protected $table = 'menus';
+
+    protected $primaryKey = 'id';
+    protected $fillable = ['id_level', 'menu_name', 'menu_link', 'menu_icon', 'parent_id', 'delete_mark', 'create_by', 'update_by'];
 
     // A menu item belongs to a level
     public function level()
@@ -26,7 +20,6 @@ class Menu extends Model
         return $this->belongsTo(MenuLevel::class, 'id_level');
     }
 
-    // A menu item can have many children (submenus)
     public function children()
     {
         return $this->hasMany(Menu::class, 'parent_id');
@@ -38,7 +31,7 @@ class Menu extends Model
         return $this->belongsTo(Menu::class, 'parent_id');
     }
 
-    public function users()
+    public function roles()
     {
         return $this->belongsToMany(JenisUser::class, 'setting_menu_users', 'menu_id', 'id_jenis_user');
     }

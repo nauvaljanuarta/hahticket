@@ -8,6 +8,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\SettingMenuUserController;
 
 
 Route::get('/coba', function () {
@@ -38,6 +40,17 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/admin/role/add',[RoleController::class,'store'])->name('role.store');
         Route::put('/admin/role/edit/{id}',[RoleController::class,'update'])->name('role.update');
         Route::delete('/admin/role/delete/{id}',[RoleController::class,'destroy'])->name('role.destroy');
+
+        //menu
+        Route::get('/admin/menu',[MenuController::class,'index']);
+        Route::post('/admin/menu/add',[MenuController::class,'store'])->name('menu.store');
+        Route::put('/admin/menu/edit/{id}',[MenuController::class,'update'])->name('menu.update');
+        Route::delete('/admin/menu/delete/{id}',[MenuController::class,'destroy'])->name('menu.destroy');
+        //setting
+        Route::get('/admin/{role}/settings', [SettingMenuUserController::class, 'index'])->name('role.settings');
+        Route::put('/admin/{role}/menus', [SettingMenuUserController::class, 'updateMenus'])->name('role.updateMenus');
+
+
     });
 
     // EO (Event Organizer) routes

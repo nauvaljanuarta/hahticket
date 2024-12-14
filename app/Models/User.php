@@ -34,7 +34,7 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function jenis_user()
+    public function jenisuser()
     {
         return $this->belongsTo(JenisUser::class, 'jenis_user_id'); // Pastikan 'jenis_user_id' adalah kolom yang benar
     }

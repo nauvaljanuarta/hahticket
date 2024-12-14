@@ -15,7 +15,7 @@ class RoleMiddleware
             return redirect('/login')->with('error', 'You must be logged in to access this page.');
         }
 
-        $userRole = Auth::user()->jenis_user->jenis_user; // Mengambil role user
+        $userRole = Auth::user()->jenisuser->jenis_user; // Mengambil role user
 
         // Jika role tidak cocok, redirect ke halaman lain
         if ($userRole !== $role) {

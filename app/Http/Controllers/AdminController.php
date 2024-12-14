@@ -3,16 +3,15 @@
 namespace App\Http\Controllers;
 use App\Models\Menu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $menus = Menu::with('level', 'parent')->whereNull('parent_id')->get();
-        return view('admin.dashboard',compact('menus'));
+        $assignedMenus = Auth::user()->jenisuser->menus()->pluck('menus.id')->toArray();
+        $menus = Menu::with('children')->whereNull('parent_id')->get();
+        return view('admin.dashboard', compact('menus', 'assignedMenus'));
     }
 
     public function create()
@@ -22,14 +21,12 @@ class AdminController extends Controller
 
     public function store(Request $request)
     {
-
     }
 
     public function show(string $id)
     {
         //
     }
-
 
     public function edit(string $id)
     {
