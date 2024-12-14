@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
+use Illuminate\Support\Facades\Auth;    
 use Illuminate\Http\Request;
 class EventController extends Controller
 {
@@ -11,8 +12,9 @@ class EventController extends Controller
      */
     public function index()
     {
-        $menus = Menu::with('level', 'parent')->whereNull('parent_id')->get();
-        return view ('event.dashboard', compact('menus'));
+        $assignedMenus = Auth::user()->jenisuser->menus()->pluck('menus.id')->toArray();
+        $menus = Menu::with('children')->whereNull('parent_id')->get();
+        return view ('event.dashboard', compact('menus', 'assignedMenus'));
     }
 
     /**

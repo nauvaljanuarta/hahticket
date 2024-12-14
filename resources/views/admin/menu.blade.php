@@ -169,6 +169,59 @@
         </div>
     @endforeach
 
+    @foreach ($menus as $menu)
+        @foreach ($menu->children as $submenu)
+            <div id="edit-form-{{ $submenu->id }}" class="edit-form mt-3" style="display:none;"> <!-- Initially hidden -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Edit Submenu</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('menu.update', $submenu->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <div class="form-group">
+                                <label for="menu_name">Menu Name</label>
+                                <input type="text" id="menu_name" name="menu_name" class="form-control" value="{{ $submenu->menu_name }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="menu_link">Menu Link</label>
+                                <input type="text" id="menu_link" name="menu_link" class="form-control" value="{{ $submenu->menu_link }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="menu_icon">Menu Icon</label>
+                                <input type="text" id="menu_icon" name="menu_icon" class="form-control" value="{{ $submenu->menu_icon }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="parent_id">Parent Menu</label>
+                                <select name="parent_id" id="parent_id" class="form-control">
+                                    <option value="">No Parent</option>
+                                    @foreach ($menuslist as $parentMenu)
+                                        <option value="{{ $parentMenu->id }}" @if($submenu->parent_id == $parentMenu->id) selected @endif>
+                                            {{ $parentMenu->menu_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_level">Menu Level</label>
+                                <select name="id_level" id="id_level" class="form-control" required>
+                                    @foreach ($menuLevels as $level)
+                                        <option value="{{ $level->id }}" @if($submenu->id_level == $level->id) selected @endif>
+                                            {{ $level->level }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-3">Update</button>
+                            <button type="button" class="btn btn-secondary mt-3" onclick="toggleEditForm({{ $submenu->id }})">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    @endforeach
+
     <script>
         function toggleEditForm(menuId) {
             var $formContainer = $('#edit-form-' + menuId);
