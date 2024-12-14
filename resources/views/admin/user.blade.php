@@ -69,7 +69,7 @@
                             <tr>
                                 <td>{{ $user->username }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ $user->jenis_user->jenis_user }}</td>
+                                <td>{{ $user->jenisuser->jenis_user }}</td>
                                 <td>{{ $user->create_by }}</td>
                                 <td>{{ $user->update_by }}</td>
                                 <td>

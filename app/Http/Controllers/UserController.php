@@ -12,10 +12,11 @@ class UserController extends Controller
 {
     public function index()
     {
+        $roles = JenisUser::all();
         $users = User::with('jenisuser')->get();
         $assignedMenus = Auth::user()->jenisuser->menus()->pluck('menus.id')->toArray();
         $menus = Menu::with('children')->whereNull('parent_id')->get();
-        return view('admin.user', compact('users', 'menus', 'assignedMenus'));
+        return view('admin.user', compact('users', 'menus', 'assignedMenus', 'roles'));
     }
 
     public function store(Request $request)
@@ -44,10 +45,8 @@ class UserController extends Controller
             'jenis_user_id' => 'required|string',
         ]);
 
-        // Find the user to update
         $user = User::findOrFail($id);
 
-        // Update the user's data
         $user->update([
             'username' => $request->username,
             'email' => $request->email,

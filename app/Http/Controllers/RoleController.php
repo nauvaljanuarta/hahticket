@@ -37,7 +37,7 @@ class RoleController extends Controller
         $role = JenisUser::findOrFail($id);
         $role->update([
             'jenis_user' => $request->jenis_user,
-            'update_by' => Auth::user(),
+            'update_by' => Auth::user()->username,
         ]);
 
         return redirect()->back()->with('success', 'Role successfully updated');
