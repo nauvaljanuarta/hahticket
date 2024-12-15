@@ -50,6 +50,19 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/admin/{role}/settings', [SettingMenuUserController::class, 'index'])->name('role.settings');
         Route::put('/admin/{role}/menus', [SettingMenuUserController::class, 'updateMenus'])->name('role.updateMenus');
 
+        //event category
+        Route::get('/event/categories', [EventController::class, 'category'])->name('event.categories');
+        Route::post('/event/category/add', [EventController::class, 'storecategory'])->name('event.category.store');
+        Route::put('/event/category/edit/{eventCategory}', [EventController::class, 'updatecategory'])->name('event.category.update');
+        Route::delete('/event/category/delete/{eventCategory}', [EventController::class, 'destroycategory'])->name('event.category.destroy');
+       //event and detail
+        Route::get('/event/index', [EventController::class, 'event']);
+        Route::get('/event/index/form', [EventController::class, 'createevent'])->name('event.create');
+        Route::post('/event/category/add', [EventController::class, 'storeevent'])->name('event.store');
+        Route::get('/event/index/detail/{id}', [EventController::class, 'detail'])->name('event.detail');
+
+        Route::put('/event/category/edit/{eventCategory}', [EventController::class, 'updatecategory'])->name('event.category.update');
+        Route::delete('/event/category/delete/{eventCategory}', [EventController::class, 'destroycategory'])->name('event.category.destroy');
 
     });
 

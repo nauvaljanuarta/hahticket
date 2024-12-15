@@ -17,7 +17,7 @@ class UserMiddleware
     public function handle(Request $request, Closure $next)
     {
         if (Auth::check()) {
-            $role = Auth::user()->jenis_user->jenis_user; // Mengambil role user
+            $role = Auth::user()->jenisuser->jenis_user; // Mengambil role user
 
             // Cek jika role adalah Admin atau EO, jika iya redirect ke halaman lain
             if ($role === 'Admin' || $role === 'EO') {

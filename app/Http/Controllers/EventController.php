@@ -3,65 +3,126 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
-use Illuminate\Support\Facades\Auth;    
+use App\Models\Event;
+use App\Models\EventTicket;
+use App\Models\EventCategory;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+
 class EventController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $assignedMenus = Auth::user()->jenisuser->menus()->pluck('menus.id')->toArray();
         $menus = Menu::with('children')->whereNull('parent_id')->get();
-        return view ('event.dashboard', compact('menus', 'assignedMenus'));
+        return view('event.dashboard', compact('menus', 'assignedMenus'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    // function untuk category
+    public function category()
     {
-        //
+        $assignedMenus = Auth::user()->jenisuser->menus()->pluck('menus.id')->toArray();
+        $menus = Menu::with('children')->whereNull('parent_id')->get();
+        $categories = EventCategory::all();
+        return view('event.category', compact('menus', 'assignedMenus', 'categories'));
+    }
+    public function storecategory(Request $request)
+    {
+        $request->validate([
+            'category' => 'required|string|max:40',
+            'description' => 'nullable|string',
+        ]);
+
+        EventCategory::create([
+            'category' => $request->category,
+            'description' => $request->description,
+            'create_by' => auth::user()->username,
+            'update_by' => auth::user()->username,
+        ]);
+        return redirect()->back()->with('success', 'Event Category created successfully');
+    }
+    public function updatecategory(Request $request, EventCategory $eventCategory)
+    {
+        $request->validate([
+            'category' => 'required|string|max:40',
+            'description' => 'nullable|string',
+        ]);
+
+        $eventCategory->update([
+            'category' => $request->category,
+            'description' => $request->description,
+            'update_by' => auth()->user()->name,
+        ]);
+
+        return redirect()->back()->with('success', 'Event Category updated successfully');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function destroycategory(EventCategory $eventCategory)
     {
-        //
+        $eventCategory->delete();
+        return redirect()->back()->with('success', 'Event Category deleted successfully');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    //function untuk events
+    public function event()
     {
-        //
+        $assignedMenus = Auth::user()->jenisuser->menus()->pluck('menus.id')->toArray();
+        $menus = Menu::with('children')->whereNull('parent_id')->get();
+        $events = Event::with(['category', 'organizer'])->get();
+        return view('event.event', compact('menus', 'assignedMenus', 'events'));
+    }
+    public function detail($id)
+    {
+        $event = Event::with('tickets')->findOrFail($id);
+        return view('event.show', compact('event'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function createEvent()
     {
-        //
+        $categories = EventCategory::all();
+        $assignedMenus = Auth::user()->jenisuser->menus()->pluck('menus.id')->toArray();
+        $menus = Menu::with('children')->whereNull('parent_id')->get();
+        return view('event.create', compact('menus', 'assignedMenus', 'categories'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function storeEvent(Request $request)
     {
-        //
+        $picPath = null;
+        if ($request->hasFile('pic')) {
+            $picPath = $request->file('pic')->store('event_pics', 'public');
+
+            $event = Event::create([
+                'event_name' => $request->event_name,
+                'event_category' => $request->event_category,
+                'penyelenggara' => Auth::id(),
+                'description' => $request->description,
+                'event_date' => $request->event_date,
+                'event_link' => $request->event_link,
+                'location' => $request->location,
+                'pic' => $picPath,
+                'capacity' => $request->capacity,
+            ]);
+
+                // Simpan event tickets
+            foreach ($request->ticket_name as $index => $ticket_name) {
+                EventTicket::create([
+                    'ticket_name' => $ticket_name,
+                    'description' => $request->ticket_description[$index] ?? null,
+                    'event' => $event->id,
+                    'price' => $request->ticket_price[$index],
+                ]);
+            }
+
+            return redirect('/event/index')->with('success', 'Event created successfully!');
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function updateevent(Request $request)
     {
-        //
+    }
+
+    public function destroyevent(Request $request)
+    {
     }
 }
