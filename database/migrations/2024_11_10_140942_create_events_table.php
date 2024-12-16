@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->datetime('event_date');
             $table->string('event_link', 300);
+            $table->string('slug')->unique();
             $table->string('location', 255);
             $table->string('pic', 500);
             $table->integer('capacity');

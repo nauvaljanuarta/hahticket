@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Event extends Model
 {
@@ -20,6 +21,16 @@ class Event extends Model
         'pic',
         'capacity',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($event) {
+            // Membuat slug berdasarkan nama event
+            $event->slug = Str::slug($event->event_name);
+        });
+    }
 
     public function category()
     {

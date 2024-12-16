@@ -48,17 +48,21 @@
                             <input class="form-control form-control-sm" id="pic" name="pic" type="file"
                                 class="form-control" accept="image/*" onchange="previewImage(event)">
                         </div>
+                        <div class="col-md-6 form-group">
+                            <label for="capacity">Capacity</label>
+                            <input type="number" name="capacity" id="capacity" class="form-control" required>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="capacity">Event Description</label>
+                            <input type="text" name="description" id="capacity" class="form-control" required>
+                        </div>
                         <!-- Image Preview -->
                         <div class="col-12 form-group mt-3">
                             <label>Image Preview</label>
                             <div>
                                 <img id="image-preview" src="" alt="Image Preview"
-                                    style="max-width: 100%; height: auto; display:none;">
+                                    style="width: 405px; height: 270px; object-fit: cover; display:none;">
                             </div>
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label for="capacity">Capacity</label>
-                            <input type="number" name="capacity" id="capacity" class="form-control" required>
                         </div>
                     </div>
                 </div>

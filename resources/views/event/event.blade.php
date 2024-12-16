@@ -30,6 +30,7 @@
                             <th>Event Name</th>
                             <th>Category</th>
                             <th>Description</th>
+                            <th>Penyelenggara</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -40,6 +41,7 @@
                                 <td>{{ $event->event_name }}</td>
                                 <td>{{ $event->category->category }}</td>
                                 <td>{{ Str::limit($event->description, 50) }}</td> <!-- Limit description -->
+                                <td>{{ $event->organizer->username}}</td>
                                 <td>
                                     <!-- Show button to view ticket details -->
                                     <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal"
@@ -94,6 +96,8 @@
                 </table>
             </div>
         </div>
+        <a href="{{ route('event.create') }}" class="btn btn-primary ">
+            <i class="bi bi-plus-circle"></i> Add Event</a>
     </div>
 
     <script>

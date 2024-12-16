@@ -108,7 +108,7 @@ class EventController extends Controller
             foreach ($request->ticket_name as $index => $ticket_name) {
                 EventTicket::create([
                     'ticket_name' => $ticket_name,
-                    'description' => $request->ticket_description[$index] ?? null,
+                    'description' => $request->ticket_description[$index] ?? '0',
                     'event' => $event->id,
                     'price' => $request->ticket_price[$index],
                 ]);

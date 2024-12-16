@@ -15,5 +15,13 @@ class CustomerController extends Controller
         $events = Event::all();
         return view ('customer.dashboard',compact('menus', 'assignedMenus', 'events'));
     }
+    public function show($slug)
+    {
+        // Menemukan event berdasarkan slug
+        $event = Event::where('slug', $slug)->firstOrFail();
+
+        // Mengirim data event ke view
+        return view('events.show', compact('event'));
+    }
 }
 
