@@ -64,7 +64,9 @@ Route::middleware(['auth'])->group(function () {
         //dashboard customer
         Route::get('/dashboard', [CustomerController::class, 'index'])->name('user.dashboard');
         Route::get('event/{slug}/{id}', [CustomerController::class, 'show'])->name('event.show');
-        //tchecktout
+        //checkout
+        Route::get('/checkout', [CustomerController::class, 'checkout'])->name('checkout.form');
+
 
 
 

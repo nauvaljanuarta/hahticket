@@ -122,13 +122,13 @@
             </div>
             <hr class="my-3">
             <!-- Checkout Button -->
-            <button type="button" id="checkout-btn" class="btn btn-primary w-100" onclick="checkout()">
+            <button type="button" class="btn btn-primary w-100" id="checkout-btn" onclick="checkout()">
                 <i class="ti ti-shopping-cart text-white"></i> Checkout
             </button>
             <!-- Footer Information -->
             <div class="text-center mt-4">
                 <p class="mb-1 text-muted">Need help? Contact our support team</p>
-                <a href="mailto:support@example.com" class="btn btn-sm btn-outline-secondary">Contact Support</a>
+                <a href="mailto:support@company.com" class="btn btn-sm btn-outline-secondary">Contact Support</a>
             </div>
         </div>
     </div>
@@ -190,7 +190,6 @@
                 cart = cart.filter(item => item.ticketId !== ticketId);
                 showTicketSummary();
             }
-
         }
 
         // Fungsi untuk menampilkan ringkasan tiket di offcanvas
@@ -232,5 +231,17 @@
             popover.show();
         }
 
+        // Fungsi checkout
+         // Fungsi checkout untuk mengirimkan data keranjang ke halaman pemesanan
+    function checkout() {
+        if (cart.length === 0) {
+            alert("Please add at least one ticket to your cart.");
+            return;
+        }
+
+        const queryParams = cart.map(item => `tickets[]=${encodeURIComponent(JSON.stringify(item))}`).join('&');
+
+        window.location.href = "{{ route('checkout.form') }}?" + queryParams;
+    }
     </script>
 @endsection
