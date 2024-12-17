@@ -13,21 +13,17 @@ class Pemesanan extends Model
 
     protected $fillable = [
         'user_id',
-        'event_ticket_id',
-        'quantity',
-        'total',
         'status',
+        'total',
     ];
 
-    // Relasi dengan user
-    public function user()
+       public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // Relasi dengan event_ticket
-    public function eventTicket()
+    public function eventTickets()
     {
-        return $this->belongsTo(EventTicket::class);
+        return $this->hasMany(PemesananEventTicket::class);
     }
 }

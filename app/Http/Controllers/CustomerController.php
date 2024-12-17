@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Menu;
 use App\Models\Event;
 use App\Models\EventTicket;
+use App\Models\PemesananEventTicket;
+use App\Models\Pemesanan;
 class CustomerController extends Controller
 {
     public function index()
@@ -29,25 +31,61 @@ class CustomerController extends Controller
         $assignedMenus = Auth::user()->jenisuser->menus()->pluck('menus.id')->toArray();
         $menus = Menu::with('children')->whereNull('parent_id')->get();
         $tickets = $request->input('tickets', []);
-        // Mengubah tiket yang diinputkan menjadi array
+
         $cart = array_map(function ($ticketData) {
             return json_decode($ticketData, true);
         }, $tickets);
-        // Ambil event ID dari tiket pertama yang ada di cart (asumsi semua tiket di cart milik event yang sama)
-        $eventId = $cart[0]['ticket']['event'] ?? null; // 'event' di sini adalah foreign key
-        // Jika event tidak ditemukan
+
+        $eventId = $cart[0]['ticket']['event'] ?? null;
+        
         if (!$eventId) {
             return redirect()->back()->with('error', 'Event not found!');
         }
-        $totalAmount = array_reduce($cart, function($carry, $item) {
-            return $carry + $item['totalPrice'];
-        }, 0);
+        $totalAmount = array_reduce(
+            $cart,
+            function ($carry, $item) {
+                return $carry + $item['totalPrice'];
+            },
+            0,
+        );
         // Ambil data event berdasarkan ID
         $event = Event::find($eventId);
         // Jika event tidak ditemukan
         if (!$event) {
             return redirect()->back()->with('error', 'Event not found!');
         }
-        return view('customer.checkout', compact('cart', 'event','menus', 'assignedMenus', 'totalAmount'));
+        return view('customer.checkout', compact('cart', 'event', 'menus', 'assignedMenus', 'totalAmount'));
+    }
+
+    public function checkoutstore(Request $request)
+    {
+        // Inisialisasi totalAmount
+        $totalAmount = 0;
+
+        // Hitung total amount berdasarkan items dalam cart
+        foreach ($request->items as $item) {
+            // Menambahkan sub_total ke totalAmount
+            $totalAmount += $item['sub_total']; // sub_total sudah dihitung sebelumnya di front-end
+        }
+
+        // Store the order details in 'pemesanan' table
+        $pemesanan = new Pemesanan();
+        $pemesanan->user_id = auth()->id(); // Assuming the user is authenticated
+        $pemesanan->status = 'Pending'; // Status order, misalnya 'Pending' atau 'Completed'
+        $pemesanan->total = $totalAmount; // Total amount yang dihitung di atas
+        $pemesanan->save();
+
+        // Store the items in 'pemesanan_event_ticket' pivot table
+        foreach ($request->items as $item) {
+            PemesananEventTicket::create([
+                'pemesanan_id' => $pemesanan->id,
+                'event_ticket_id' => $item['event_ticket_id'],
+                'quantity' => $item['quantity'],
+                'sub_total' => $item['sub_total'], // Menggunakan nilai sub_total dari request
+            ]);
+        }
+
+        // Redirect to a success page or another page
+        return redirect('/order')->with('success', 'Pemesanan berhasil dilakukan');
     }
 }

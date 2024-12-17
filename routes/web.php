@@ -66,6 +66,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('event/{slug}/{id}', [CustomerController::class, 'show'])->name('event.show');
         //checkout
         Route::get('/checkout', [CustomerController::class, 'checkout'])->name('checkout.form');
+        Route::post('/checkout', [CustomerController::class, 'checkoutstore'])->name('checkout.store');
 
 
 

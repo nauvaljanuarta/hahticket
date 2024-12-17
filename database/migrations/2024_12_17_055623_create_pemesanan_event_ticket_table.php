@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('pemesanan_id');
             $table->unsignedBigInteger('event_ticket_id');
             $table->integer('quantity');
-            $table->decimal('total', 10, 2);
+            $table->decimal('sub_total', 10, 2);
             $table->timestamps();
             $table->foreign('pemesanan_id')->references('id')->on('pemesanan')->onDelete('cascade');
             $table->foreign('event_ticket_id')->references('id')->on('event_tickets')->onDelete('cascade');

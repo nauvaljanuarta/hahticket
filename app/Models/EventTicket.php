@@ -18,4 +18,8 @@ class EventTicket extends Model
     {
         return $this->belongsTo(Event::class, 'event');
     }
+    public function pemesananEventTickets()
+    {
+        return $this->hasMany(PemesananEventTicket::class);
+    }
 }

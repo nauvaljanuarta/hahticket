@@ -19,7 +19,7 @@
         <div class="card shadow-none border">
             <div class="card-body p-4">
                 <div class="wizard-content">
-                    <form action="" method="POST" class="tab-wizard wizard-circle">
+                    <form action="{{ route('checkout.store') }}" method="POST" class="tab-wizard wizard-circle">
                         @csrf
 
                         <!-- Step 1: Cart -->
@@ -55,6 +55,9 @@
                                                 <td class="text-end">
                                                     <span class="fs-4 fw-semibold">Rp. {{ number_format($item['totalPrice'], 0, ',', '.') }}</span>
                                                 </td>
+                                                <input type="hidden" name="items[{{ $loop->index }}][event_ticket_id]" value="{{ $item['ticket']['id'] }}">
+                                                <input type="hidden" name="items[{{ $loop->index }}][quantity]" value="{{ $item['qty'] }}">
+                                                <input type="hidden" name="items[{{ $loop->index }}][sub_total]" value="{{ $item['totalPrice'] }}">
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -72,7 +75,6 @@
                                 </div>
                             </div>
                         </section>
-
 
                         <!-- Step 2: Payment -->
                         <h6 class="mt-5 mb-4">Payment</h6>
