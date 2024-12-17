@@ -61,10 +61,10 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/event/category/add', [EventController::class, 'storeevent'])->name('event.store');
         Route::get('/event/index/detail/{id}', [EventController::class, 'detail'])->name('event.detail');
 
-
         //dashboard customer
         Route::get('/dashboard', [CustomerController::class, 'index'])->name('user.dashboard');
         Route::get('event/{slug}/{id}', [CustomerController::class, 'show'])->name('event.show');
+        //tchecktout
 
 
 

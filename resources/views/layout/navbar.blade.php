@@ -496,7 +496,7 @@
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <div class="d-flex align-items-center flex-shrink-0">
                                     <div class="user-profile me-sm-3 me-2">
-                                        <img src="../assets/images/profile/user-1.jpg" width="45"
+                                        <img src="{{ asset('../assets/images/profile/user-1.jpg') }}" width="45"
                                             class="rounded-circle" alt="">
                                     </div>
                                     <span class="d-sm-none d-block"><iconify-icon
