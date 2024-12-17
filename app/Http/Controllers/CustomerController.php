@@ -37,7 +37,7 @@ class CustomerController extends Controller
         }, $tickets);
 
         $eventId = $cart[0]['ticket']['event'] ?? null;
-        
+
         if (!$eventId) {
             return redirect()->back()->with('error', 'Event not found!');
         }
@@ -87,5 +87,45 @@ class CustomerController extends Controller
 
         // Redirect to a success page or another page
         return redirect('/order')->with('success', 'Pemesanan berhasil dilakukan');
+    }
+    public function order()
+    {
+        $assignedMenus = Auth::user()->jenisuser->menus()->pluck('menus.id')->toArray();
+        $menus = Menu::with('children')->whereNull('parent_id')->get();
+        $pemesanan = Pemesanan::with('eventTickets')->get();
+        return view('customer.order', compact('menus', 'assignedMenus', 'pemesanan'));
+    }
+
+    public function orderdetail($id)
+    {
+        $pemesanan = Pemesanan::with('eventTickets')->findOrFail($id);
+        return view('detailorder', compact('pemesanan'));
+    }
+
+    public function pembayaran(Request $request)
+    {
+
+        \Midtrans\Config::$serverKey = config('midtrans.server_key');
+
+        \Midtrans\Config::$isProduction = false;
+
+        \Midtrans\Config::$isSanitized = true;
+
+        \Midtrans\Config::$is3ds = true;
+
+        $params = [
+            'transaction_details' => [
+                'order_id' => rand(),
+                'gross_amount' => 10000,
+            ],
+            'customer_details' => [
+                'first_name' => 'budi',
+                'last_name' => 'pratama',
+                'email' => 'budi.pra@example.com',
+                'phone' => '08111222333',
+            ],
+        ];
+
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
     }
 }

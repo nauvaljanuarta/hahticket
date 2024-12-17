@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,12 +13,17 @@ class EventTicket extends Model
     protected $fillable = [
         'ticket_name', 'description', 'event', 'price'
     ];
+
     public function event()
     {
         return $this->belongsTo(Event::class, 'event');
     }
-    public function pemesananEventTickets()
+
+    // Memperbaiki relasi dengan banyak pemesanan melalui pivot table
+    public function pemesanans()
     {
-        return $this->hasMany(PemesananEventTicket::class);
+        return $this->belongsToMany(Pemesanan::class, 'pemesanan_event_ticket', 'event_ticket_id', 'pemesanan_id')
+            ->withPivot('quantity', 'sub_total'); // Pastikan pivot data bisa diakses
     }
 }
+

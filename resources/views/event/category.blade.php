@@ -64,8 +64,8 @@
                                 <td>{{ $category->description }}</td>
                                 <td>{{ $category->create_by }}</td>
                                 <td>{{ $category->update_by }}</td>
-                                <td>{{ $category->created_at }}</td> <!-- Format created_at -->
-                                <td>{{ $category->updated_at }}</td> <!-- Format updated_at -->
+                                <td>{{ $category->created_at }}</td>
+                                <td>{{ $category->updated_at }}</td> 
                                 <td>
                                     <!-- Edit Category -->
                                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
