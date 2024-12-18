@@ -10,6 +10,8 @@ class Pemesanan extends Model
 
     protected $table = 'pemesanan';
 
+    protected $primaryKey = 'id';
+
     protected $fillable = [
         'user_id',
         'status',

@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Menu;
 use App\Models\Event;
-use App\Models\EventTicket;
+use App\Models\Transaksi;
+use App\Models\DetailTransaksi;
 use App\Models\PemesananEventTicket;
 use App\Models\Pemesanan;
 class CustomerController extends Controller
@@ -90,42 +91,113 @@ class CustomerController extends Controller
     }
     public function order()
     {
+        // Ambil data menu dan pemesanan pengguna yang sedang login
         $assignedMenus = Auth::user()->jenisuser->menus()->pluck('menus.id')->toArray();
         $menus = Menu::with('children')->whereNull('parent_id')->get();
-        $pemesanan = Pemesanan::with('eventTickets')->get();
-        return view('customer.order', compact('menus', 'assignedMenus', 'pemesanan'));
-    }
+        $pemesanan = Pemesanan::with('eventTickets')->where('user_id', auth()->id())->get();
 
-    public function orderdetail($id)
-    {
-        $pemesanan = Pemesanan::with('eventTickets')->findOrFail($id);
-        return view('detailorder', compact('pemesanan'));
+        return view('customer.order', compact('menus', 'assignedMenus', 'pemesanan'));
     }
 
     public function pembayaran(Request $request)
     {
+        $serverKey = config('midtrans.server_key');
+        $hashed = hash('sha512', $request->order_id . $request->status_code . $request->gross_amount . $serverKey);
 
-        \Midtrans\Config::$serverKey = config('midtrans.server_key');
+        // Verifikasi apakah signature valid
+        if ($hashed == $request->signature_key) {
+            // Cek status transaksi
+            if ($request->transaction_status == '') {
+                // Temukan pemesanan berdasarkan order_id
+                $order = Pemesanan::findOrFail($request->order_id);
 
-        \Midtrans\Config::$isProduction = false;
+                // Update status pemesanan menjadi 'Paid'
+                $order->status = 'Paid';
+                $order->save();
 
-        \Midtrans\Config::$isSanitized = true;
+                // Tambahkan data transaksi
+                $transaksi = new Transaksi();
+                $transaksi->pemesanan_id = $order->id;
+                $transaksi->jenis_pembayaran = 1; // Ganti dengan ID jenis pembayaran yang sesuai
+                $transaksi->jumlah = $request->gross_amount;
+                $transaksi->status = 'Paid';
+                $transaksi->save();
 
-        \Midtrans\Config::$is3ds = true;
+                // Tambahkan detail transaksi untuk setiap event ticket
+                foreach ($order->eventTickets as $eventTicket) {
+                    // Temukan pemesanan_event_ticket yang sesuai
+                    $pemesananEventTicket = PemesananEventTicket::where('pemesanan_id', $order->id)
+                        ->where('event_ticket_id', $eventTicket->id)
+                        ->first();
 
-        $params = [
-            'transaction_details' => [
-                'order_id' => rand(),
-                'gross_amount' => 10000,
-            ],
-            'customer_details' => [
-                'first_name' => 'budi',
-                'last_name' => 'pratama',
-                'email' => 'budi.pra@example.com',
-                'phone' => '08111222333',
-            ],
-        ];
+                    if ($pemesananEventTicket) {
+                        DetailTransaksi::create([
+                            'transaksi_id' => $transaksi->id,
+                            'pemesanan_event_ticket_id' => $pemesananEventTicket->id, // Relasi dengan pemesanan_event_ticket
+                            'quantity' => $pemesananEventTicket->quantity,
+                            'unit_price' => $eventTicket->price, // Harga tiket per unit
+                            'subtotal' => $pemesananEventTicket->sub_total, // Sub total dari tiket
+                        ]);
+                    }
+                }
 
-        $snapToken = \Midtrans\Snap::getSnapToken($params);
+                return response()->json(['message' => 'Payment successful'], 200);
+            }
+
+            return response()->json(['message' => 'Invalid transaction status'], 400);
+        }
+
+        return response()->json(['message' => 'Signature verification failed'], 400);
+    }
+
+    public function handlePayment($id)
+    {
+        // Temukan pemesanan berdasarkan ID
+        $order = Pemesanan::findOrFail($id);
+
+        // Update status pemesanan menjadi 'Paid'
+        $order->status = 'Paid';
+        $order->save();
+
+        // Buat transaksi baru
+        $transaksi = new Transaksi();
+        $transaksi->pemesanan_id = $order->id;
+        $transaksi->jenis_pembayaran = 1; // Ganti sesuai dengan ID jenis pembayaran
+        $transaksi->jumlah = $order->total;
+        $transaksi->status = 'Paid';
+        $transaksi->save();
+
+        // Masukkan detail transaksi untuk setiap tiket dalam pemesanan
+        foreach ($order->eventTickets as $ticket) {
+            $pemesananEventTicket = PemesananEventTicket::where('pemesanan_id', $order->id)
+                ->where('event_ticket_id', $ticket->id)
+                ->first();
+
+            if ($pemesananEventTicket) {
+                DetailTransaksi::create([
+                    'transaksi_id' => $transaksi->id,
+                    'pemesanan_event_ticket_id' => $pemesananEventTicket->id,
+                    'quantity' => $pemesananEventTicket->quantity,
+                    'unit_price' => $ticket->price,
+                    'subtotal' => $pemesananEventTicket->sub_total,
+                ]);
+            }
+        }
+
+        // Redirect dengan pesan sukses
+        return redirect()->back()->with('success', 'Pembayaran berhasil diproses.');
+    }
+
+    public function transactions()
+    {
+        $assignedMenus = Auth::user()->jenisuser->menus()->pluck('menus.id')->toArray();
+        $menus = Menu::with('children')->whereNull('parent_id')->get();
+        $user = Auth::user();   
+        $transaksi = Transaksi::whereHas('pemesanan', function ($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })->with(['pemesanan', 'jenisPembayaran'])->get();
+
+
+        return view('customer.transaksi', compact('transaksi','menus', 'assignedMenus'));
     }
 }

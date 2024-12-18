@@ -20,7 +20,7 @@
                 <h4>Add New Category</h4>
             </div>
             <div class="card-body">
-                <form action="{{ route('event.category.store') }}" method="POST">
+                <form action="" method="POST">
                     @csrf
                     <div class="form-group">
                         <label for="category">Category Name</label>
@@ -65,7 +65,7 @@
                                 <td>{{ $category->create_by }}</td>
                                 <td>{{ $category->update_by }}</td>
                                 <td>{{ $category->created_at }}</td>
-                                <td>{{ $category->updated_at }}</td> 
+                                <td>{{ $category->updated_at }}</td>
                                 <td>
                                     <!-- Edit Category -->
                                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
