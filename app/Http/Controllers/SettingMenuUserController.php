@@ -31,6 +31,8 @@ class SettingMenuUserController extends Controller
             'menus.*' => 'exists:menus,id', // Ensure all selected menus exist in the menus table
         ]);
 
+        $user = Auth::check() ? Auth::user()->username : 'system'; // ini ditambahkan karena test gagal
+
         // Delete the previous menu assignments for this role
         SettingMenuUser::where('id_jenis_user', $roleId)->delete();
 
@@ -39,9 +41,9 @@ class SettingMenuUserController extends Controller
             SettingMenuUser::create([
                 'id_jenis_user' => $roleId,
                 'menu_id' => $menuId,
-                'create_by' => Auth::user()->username,
+                'create_by' => $user,
                 'delete_by' => '', // Leave blank initially, or implement delete tracking
-                'update_by' => Auth::user()->username,
+                'update_by' => $user,
             ]);
         }
 
