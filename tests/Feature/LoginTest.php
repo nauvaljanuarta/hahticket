@@ -5,7 +5,6 @@ use Tests\TestCase;
 
 class LoginTest extends TestCase
 {
-    /** @test */
     public function admin_login()
     {
         $response = $this->post('/login', [
@@ -17,7 +16,6 @@ class LoginTest extends TestCase
         $this->assertAuthenticated();
     }
 
-    /** @test */
     public function customer_login()
     {
         $response = $this->post('/login', [
@@ -29,7 +27,6 @@ class LoginTest extends TestCase
         $this->assertAuthenticated();
     }
 
-    /** @test */
     public function organizer_login()
     {
         $response = $this->post('/login', [
@@ -41,7 +38,6 @@ class LoginTest extends TestCase
         $this->assertAuthenticated();
     }
 
-    /** @test */
     public function wrong_login()
     {
         $response = $this->post('/login', [

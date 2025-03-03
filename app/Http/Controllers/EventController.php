@@ -30,7 +30,7 @@ class EventController extends Controller
     public function storecategory(Request $request)
     {
         $request->validate([
-            'category' => 'required|string|max:40',
+            'category' => 'required|string',
             'description' => 'nullable|string',
         ]);
 
@@ -40,7 +40,7 @@ class EventController extends Controller
             'create_by' => auth::user()->username,
             'update_by' => auth::user()->username,
         ]);
-        return redirect()->back()->with('success', 'Event Category created successfully');
+        return redirect()->route('event.categories')->with('success', 'Event Category created successfully');
     }
     public function updatecategory(Request $request, EventCategory $eventCategory)
     {
@@ -52,7 +52,7 @@ class EventController extends Controller
         $eventCategory->update([
             'category' => $request->category,
             'description' => $request->description,
-            'update_by' => auth()->user()->name,
+            'update_by' => auth()->user()->username,
         ]);
 
         return redirect()->back()->with('success', 'Event Category updated successfully');
@@ -71,11 +71,6 @@ class EventController extends Controller
         $menus = Menu::with('children')->whereNull('parent_id')->get();
         $events = Event::with(['category', 'organizer'])->get();
         return view('event.event', compact('menus', 'assignedMenus', 'events'));
-    }
-    public function detail($id)
-    {
-        $event = Event::with('tickets')->findOrFail($id);
-        return view('event.show', compact('event'));
     }
 
     public function createEvent()

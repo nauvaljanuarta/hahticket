@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\DB;
 class SettingMenuUserTest extends TestCase
 {
     protected $admin;
-
     protected function setUp(): void
     {
         parent::setUp();

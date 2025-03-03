@@ -15,7 +15,6 @@ class MenuTest extends TestCase
 {
     protected $admin;
     protected $menuLevel;
-
     protected function setUp(): void
     {
         parent::setUp();

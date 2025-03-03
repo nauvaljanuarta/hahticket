@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\Hash;
 class UserTest extends TestCase
 {
     protected $admin;
-
-    // Start transaksi manual
     protected function setUp(): void
     {
         parent::setUp();
@@ -38,13 +36,11 @@ class UserTest extends TestCase
         $this->actingAs($this->admin);
     }
 
-    // Rollback semua data setelah test
     protected function tearDown(): void
     {
         DB::rollBack();
         parent::tearDown();
     }
-
     /** @test */
     public function add()
     {
@@ -63,10 +59,8 @@ class UserTest extends TestCase
         ]);
     }
 
-    /** @test */
     public function edit()
     {
-        // Buat data awal
         $user = User::create([
             'username' => 'olduser',
             'email' => 'olduser@example.com',
@@ -92,11 +86,9 @@ class UserTest extends TestCase
             'no_hp' => '0812222333',
         ]);
     }
-
     /** @test */
     public function remove()
     {
-        // Buat data awal
         $user = User::create([
             'username' => 'deleteuser',
             'email' => 'deleteuser@example.com',
