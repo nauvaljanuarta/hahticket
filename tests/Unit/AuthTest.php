@@ -2,18 +2,15 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use App\Models\User;
-use Mockery;
+
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class AuthTest extends TestCase
 {
 
-
-    /** @test */
+    #[Test]
     public function registerTest()
     {
         $request = Request::create('/register/post', 'POST', [
