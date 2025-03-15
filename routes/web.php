@@ -52,7 +52,7 @@ Route::middleware(['auth'])->group(function () {
 
         //event category
         Route::get('/event/categories', [EventController::class, 'category'])->name('event.categories');
-        Route::post('/event/category/add', [EventController::class, 'storecategory'])->name('category.store');
+        Route::post('/event/category/add', [EventController::class, 'storecategory'])->name('event.category.store');
         Route::put('/event/category/edit/{eventCategory}', [EventController::class, 'updatecategory'])->name('event.category.update');
         Route::delete('/event/category/delete/{eventCategory}', [EventController::class, 'destroycategory'])->name('event.category.destroy');
        //event and detail
@@ -64,7 +64,7 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/event/category/edit/{eventCategory}', [EventController::class, 'updatecategory'])->name('event.category.update');
         Route::delete('/event/category/delete/{eventCategory}', [EventController::class, 'destroycategory'])->name('event.category.destroy');
 
-    });
+    }); 
 
     // EO (Event Organizer) routes
     Route::middleware(['role:EO'])->group(function () {

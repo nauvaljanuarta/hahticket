@@ -29,7 +29,8 @@
                     data-simplebar>
                     <div class="card-body">
                         <a href="../dark/index.html" class="">
-                            <img src="../assets/images/logos/hahkecil1.svg" class="dark-logo" alt="Logo-light" style="width: 400px; height: auto;" />
+                            <img src="../assets/images/logos/hahkecil1.svg" class="dark-logo" alt="Logo-light"
+                                style="width: 400px; height: auto;" />
                         </a>
                         <div class="row align-items-center justify-content-around pt-6 pb-5">
                             <div class="col-lg-6 col-xl-5 d-none d-lg-block">
@@ -46,13 +47,14 @@
                                     <div class="mb-7">
                                         <label for="exampleInputEmail1"
                                             class="form-label text-dark fw-bold">Email</label>
-                                        <input type="email" class="form-control py-6" name="email" id="exampleInputEmail1"
-                                            aria-describedby="emailHelp" />
+                                        <input type="email" class="form-control py-6" name="email"
+                                            id="exampleInputEmail1" aria-describedby="emailHelp" />
                                     </div>
                                     <div class="mb-9">
                                         <label for="exampleInputPassword1"
                                             class="form-label text-dark fw-bold">Password</label>
-                                        <input type="password" class="form-control py-6" name="password" id="exampleInputPassword1" />
+                                        <input type="password" class="form-control py-6" name="password"
+                                            id="exampleInputPassword1" />
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between mb-7 pb-1">
                                         <div class="form-check">
@@ -63,11 +65,11 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary w-100 mb-7 rounded-pill">Sign In</button>
+                                    <button type="submit" class="btn btn-primary w-100 mb-7 rounded-pill">Sign
+                                        In</button>
                                     <div class="d-flex align-items-center">
                                         <p class="fs-3 mb-0 fw-medium">New to Spike?</p>
-                                        <a class="text-primary fw-bold ms-2 fs-3"
-                                            href="/register">Create an account</a>
+                                        <a class="text-primary fw-bold ms-2 fs-3" href="/register">Create an account</a>
                                     </div>
                                 </form>
                             </div>

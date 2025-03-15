@@ -22,7 +22,6 @@
                     <form action="{{ route('checkout.store') }}" method="POST" class="tab-wizard wizard-circle">
                         @csrf
 
-                        <!-- Step 1: Cart -->
                         <h4 class="mb-4">Your Cart</h4>
                         <section>
                             <div class="table-responsive">
