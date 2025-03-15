@@ -7,9 +7,9 @@ use App\Models\Menu;
 use App\Models\MenuLevel;
 use App\Models\JenisUser;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use PHPUnit\Framework\Attributes\Test;
 
 class MenuTest extends TestCase
 {
@@ -20,11 +20,8 @@ class MenuTest extends TestCase
         parent::setUp();
 
         DB::beginTransaction();
-
-        // Jalankan seeder biar menu_levels keisi
         $this->seed(\Database\Seeders\MenuLevelSeeder::class);
 
-        // Ambil menu level 'Main' biar bisa dipakai nanti
         $this->menuLevel = MenuLevel::where('level', 'Main')->first();
 
         // Buat JenisUser
@@ -55,7 +52,7 @@ class MenuTest extends TestCase
         parent::tearDown();
     }
 
-    /** @test */
+    #[Test]
     public function can_add_menu()
     {
         $response = $this->post(route('menu.store'), [
@@ -75,7 +72,7 @@ class MenuTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function can_edit_menu()
     {
         // Buat menu awal

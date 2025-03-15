@@ -25,10 +25,10 @@ class SettingMenuUserController extends Controller
 
     public function updateMenus(Request $request, $roleId)
     {
-        // Validate that at least one menu is selected
+        
         $request->validate([
-            'menus' => 'required|array|min:1', // Ensure at least one menu is selected
-            'menus.*' => 'exists:menus,id', // Ensure all selected menus exist in the menus table
+            'menus' => 'required|array|min:1',
+            'menus.*' => 'exists:menus,id',
         ]);
 
         $user = Auth::check() ? Auth::user()->username : 'system'; // ini ditambahkan karena test gagal

@@ -6,7 +6,7 @@ use Tests\TestCase;
 use App\Models\User;
 use App\Models\EventCategory;
 use Illuminate\Support\Facades\DB;
-
+use PHPUnit\Framework\Attributes\Test;
 class EventTest extends TestCase
 {
     protected $user;
@@ -15,10 +15,9 @@ class EventTest extends TestCase
     {
         parent::setUp();
 
-        // Mulai transaksi supaya tiap test auto-rollback
+
         DB::beginTransaction();
 
-        // Ambil user admin langsung dari database
         $this->user = User::where('username', 'admin')->first();
 
         if (!$this->user) {
@@ -35,7 +34,7 @@ class EventTest extends TestCase
         parent::tearDown();
     }
 
-    /** @test */
+    #[Test]
     public function test_can_create_event_category()
     {
         $this->assertAuthenticated();
@@ -46,7 +45,7 @@ class EventTest extends TestCase
         ]);
 
         if ($response->status() !== 302) {
-            dump($response->status(), $response->getContent()); // Hasil ini yang aku butuh lihat
+            dump($response->status(), $response->getContent());
         }
 
         $response->assertRedirect(route('event.categories'));
@@ -59,7 +58,7 @@ class EventTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function can_update_event_category()
     {
         // Insert kategori awal
@@ -85,7 +84,7 @@ class EventTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function can_delete_event_category()
     {
         $category = EventCategory::create([
@@ -103,12 +102,12 @@ class EventTest extends TestCase
         ]);
     }
 
+    #[Test]
     public function test_can_view_event_detail()
 {
-    // Pastikan user sudah login (karena setup kamu actingAs di setUp())
+
     $this->assertAuthenticated();
 
-    // 1. Buat kategori (kalau relasi event_category harus ada)
     $category = EventCategory::create([
         'category' => 'Seminar',
         'description' => 'Kategori Seminar',
@@ -116,7 +115,6 @@ class EventTest extends TestCase
         'update_by' => $this->user->username,
     ]);
 
-    // 2. Buat event
     $event = \App\Models\Event::create([
         'event_name' => 'Sample Event',
         'event_category' => $category->id,
@@ -129,7 +127,6 @@ class EventTest extends TestCase
         'capacity' => 100,
     ]);
 
-    // 3. Buat beberapa tiket
     \App\Models\EventTicket::create([
         'ticket_name' => 'Early Bird',
         'description' => 'Tiket murah',

@@ -12,6 +12,7 @@ use App\Models\Pemesanan;
 use App\Models\PemesananEventTicket;
 use App\Models\Transaksi;
 use Illuminate\Support\Facades\DB;
+use PHPUnit\Framework\Attributes\Test;
 
 class CustomerTest extends TestCase
 {
@@ -45,7 +46,7 @@ class CustomerTest extends TestCase
     ]);
     }
 
-    /** @test */
+    #[Test]
     public function user_can_access_dashboard()
     {
         $response = $this->get(route('user.dashboard'));
@@ -54,7 +55,7 @@ class CustomerTest extends TestCase
                  ->assertViewIs('customer.dashboard');
     }
 
-    /** @test */
+    #[Test]
     public function user_can_view_event_detail()
     {
         $category = EventCategory::create([
@@ -91,7 +92,7 @@ class CustomerTest extends TestCase
         $response->assertSee('Early Bird');
     }
 
-    /** @test */
+    #[Test]
     public function user_can_checkout_tickets()
     {
         $category = EventCategory::create([
@@ -145,7 +146,7 @@ class CustomerTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function user_can_view_order_list()
     {
         $pemesanan = Pemesanan::create([
@@ -161,7 +162,7 @@ class CustomerTest extends TestCase
                  ->assertSee(number_format($pemesanan->total, 0, ',', '.'));
     }
 
-    /** @test */
+    #[Test]
     public function user_can_make_payment()
     {
         $pemesanan = Pemesanan::create([
@@ -184,7 +185,7 @@ class CustomerTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function user_can_view_transactions()
     {
         $pemesanan = Pemesanan::create([

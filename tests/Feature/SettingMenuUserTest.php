@@ -8,10 +8,12 @@ use App\Models\JenisUser;
 use App\Models\Menu;
 use App\Models\SettingMenuUser;
 use Illuminate\Support\Facades\DB;
+use PHPUnit\Framework\Attributes\Test;
 
 class SettingMenuUserTest extends TestCase
 {
     protected $admin;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -19,7 +21,8 @@ class SettingMenuUserTest extends TestCase
         DB::beginTransaction();
 
         // Buat Role dan User Admin
-        $role = JenisUser::create(['jenis_user' => 'Admin']);
+        $role = $this->createRole('Admin');
+
         $this->admin = User::create([
             'username' => 'adminuser',
             'email' => 'admin@example.com',
@@ -31,9 +34,27 @@ class SettingMenuUserTest extends TestCase
         ]);
 
         // Buat beberapa menu
-        Menu::create(['nama_menu' => 'Dashboard', 'route' => '/dashboard']);
-        Menu::create(['nama_menu' => 'User Management', 'route' => '/users']);
-        Menu::create(['nama_menu' => 'Settings', 'route' => '/settings']);
+        Menu::create([
+            'id_level' => 1,
+            'menu_name' => 'User Management',
+            'menu_link' => '/users',
+            'menu_icon' => 'icon-users',
+            'parent_id' => null,
+            'delete_mark' => 'N',
+            'create_by' => 'system',
+            'update_by' => 'system',
+        ]);
+
+        Menu::create([
+            'id_level' => 1,
+            'menu_name' => 'Settings',
+            'menu_link' => '/settings',
+            'menu_icon' => 'icon-settings',
+            'parent_id' => null,
+            'delete_mark' => 'N',
+            'create_by' => 'system',
+            'update_by' => 'system',
+        ]);
 
         $this->actingAs($this->admin);
     }
@@ -44,16 +65,25 @@ class SettingMenuUserTest extends TestCase
         parent::tearDown();
     }
 
-    /** @test */
-    public function view_page()
+    /**
+     * Helper untuk membuat role biar tidak perlu tulis berulang.
+     */
+    private function createRole(string $jenisUser): JenisUser
     {
-        $role = JenisUser::create([
-            'jenis_user' => 'Customer',
+        return JenisUser::create([
+            'jenis_user' => $jenisUser,
             'create_by' => 'system',
             'update_by' => 'system',
         ]);
+    }
 
-        $response = $this->get('/admin/role/' . $role->id . '/setting');
+    #[Test]
+    public function view_page()
+    {
+        $role = $this->createRole('Customer');
+
+        $response = $this->get('/admin/' . $role->id . '/settings');
+
         $response->assertStatus(200);
         $response->assertViewIs('admin.setting');
         $response->assertViewHas('role');
@@ -62,21 +92,18 @@ class SettingMenuUserTest extends TestCase
         $response->assertViewHas('assignedMenus');
     }
 
-    /** @test */
+    #[Test]
     public function update()
     {
-        $role = JenisUser::create([
-            'jenis_user' => 'Customer',
-            'create_by' => 'system',
-            'update_by' => 'system',
-        ]);
+        $role = $this->createRole('Customer');
 
-        $menu1 = Menu::where('nama_menu', 'Dashboard')->first();
-        $menu2 = Menu::where('nama_menu', 'User Management')->first();
+        $menu1 = Menu::where('menu_name', 'Dashboard')->first();
+        $menu2 = Menu::where('menu_name', 'User Management')->first();
 
-        $response = $this->post('/admin/role/' . $role->id . '/setting/update', [
+        $response = $this->put('/admin/' . $role->id . '/menus', [
             'menus' => [$menu1->id, $menu2->id],
         ]);
+
 
         $response->assertRedirect('/admin/role');
         $response->assertSessionHas('success', 'Menus updated successfully');
@@ -91,18 +118,15 @@ class SettingMenuUserTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function update_fails_without_menu()
     {
-        $role = JenisUser::create([
-            'jenis_user' => 'Customer',
-            'create_by' => 'system',
-            'update_by' => 'system',
-        ]);
+        $role = $this->createRole('Customer');
 
-        $response = $this->post('/admin/role/' . $role->id . '/setting/update', [
+        $response = $this->put('/admin/' . $role->id . '/menus', [
             'menus' => [],
         ]);
+
 
         $response->assertSessionHasErrors(['menus']);
     }

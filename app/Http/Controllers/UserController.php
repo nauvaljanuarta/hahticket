@@ -42,7 +42,7 @@ class UserController extends Controller
             'username' => 'required|string|max:255|unique:users,username,' . $id,
             'email' => 'required|email|unique:users,email,' . $id,
             'no_hp' => 'required|string|max:15',
-            'jenis_user_id' => 'required|string', // ada salah setelah test di validasi string yang harusnya integer, karena jenis user var int
+            'jenis_user_id' => 'required|int', // ada salah setelah test di validasi string yang harusnya integer, karena jenis user var int
         ]);
 
         $user = User::findOrFail($id);

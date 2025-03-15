@@ -37,8 +37,8 @@ class EventController extends Controller
         EventCategory::create([
             'category' => $request->category,
             'description' => $request->description,
-            'create_by' => auth::user()->username,
-            'update_by' => auth::user()->username,
+            'create_by' => Auth::user()->username,
+            'update_by' => Auth::user()->username,
         ]);
         return redirect()->route('event.categories')->with('success', 'Event Category created successfully');
     }

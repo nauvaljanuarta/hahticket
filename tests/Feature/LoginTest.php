@@ -2,9 +2,10 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-
+use PHPUnit\Framework\Attributes\Test;
 class LoginTest extends TestCase
 {
+    #[Test]
     public function admin_login()
     {
         $response = $this->post('/login', [
@@ -15,7 +16,7 @@ class LoginTest extends TestCase
         $response->assertRedirect('/admin/dashboard');
         $this->assertAuthenticated();
     }
-
+    #[Test]
     public function customer_login()
     {
         $response = $this->post('/login', [
@@ -26,7 +27,7 @@ class LoginTest extends TestCase
         $response->assertRedirect('/dashboard');
         $this->assertAuthenticated();
     }
-
+    #[Test]
     public function organizer_login()
     {
         $response = $this->post('/login', [
@@ -37,7 +38,7 @@ class LoginTest extends TestCase
         $response->assertRedirect('/event/dashboard');
         $this->assertAuthenticated();
     }
-
+    #[Test]
     public function wrong_login()
     {
         $response = $this->post('/login', [

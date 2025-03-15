@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\JenisUser;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use PHPUnit\Framework\Attributes\Test;
 
 class RoleTest extends TestCase
 {

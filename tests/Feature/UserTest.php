@@ -7,10 +7,12 @@ use App\Models\User;
 use App\Models\JenisUser;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use PHPUnit\Framework\Attributes\Test;
 
 class UserTest extends TestCase
 {
     protected $admin;
+    #[Test]
     protected function setUp(): void
     {
         parent::setUp();
@@ -41,7 +43,7 @@ class UserTest extends TestCase
         DB::rollBack();
         parent::tearDown();
     }
-    /** @test */
+    #[Test]
     public function add()
     {
         $response = $this->post('/admin/user/add', [
@@ -58,7 +60,7 @@ class UserTest extends TestCase
             'email' => 'newuser@example.com',
         ]);
     }
-
+    #[Test]
     public function edit()
     {
         $user = User::create([
@@ -79,14 +81,15 @@ class UserTest extends TestCase
         ]);
 
         $response->assertRedirect();
-        $this->assertDatabaseHas('users', [
+        $this->assertDatabaseHas('users',
+        [
             'id' => $user->id,
             'username' => 'updateduser',
             'email' => 'updateduser@example.com',
             'no_hp' => '0812222333',
         ]);
     }
-    /** @test */
+    #[Test]
     public function remove()
     {
         $user = User::create([
