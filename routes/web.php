@@ -58,13 +58,13 @@ Route::middleware(['auth'])->group(function () {
        //event and detail
         Route::get('/event/index', [EventController::class, 'event']);
         Route::get('/event/index/form', [EventController::class, 'createevent'])->name('event.create');
-        Route::post('/event/category/add', [EventController::class, 'storeevent'])->name('event.store');
+        Route::post('/event/add', [EventController::class, 'storeevent'])->name('event.store');
         Route::get('/event/index/detail/{id}', [EventController::class, 'detail'])->name('event.detail');
 
         Route::put('/event/category/edit/{eventCategory}', [EventController::class, 'updatecategory'])->name('event.category.update');
         Route::delete('/event/category/delete/{eventCategory}', [EventController::class, 'destroycategory'])->name('event.category.destroy');
 
-    }); 
+    });
 
     // EO (Event Organizer) routes
     Route::middleware(['role:EO'])->group(function () {
@@ -88,5 +88,5 @@ Route::middleware(['auth'])->group(function () {
          Route::get('/transactions', [CustomerController::class, 'transactions'])->name('transactions');
     });
 
-    // Anda bisa menambahkan rute lainnya nanti
+
 });
