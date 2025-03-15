@@ -15,7 +15,7 @@ use App\Http\Controllers\SettingMenuUserController;
 Route::get('/coba', function () {
     return view ('coba');
 });
-// General routes
+// general routes
 Route::get('/', [AuthController::class, 'index'])->name('landing');
 Route::get('/login', [AuthController::class, 'loginview'])->name('loginview');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
@@ -23,7 +23,7 @@ Route::get('/register', [AuthController::class, 'registerview'])->name('register
 Route::post('/register/post', [AuthController::class, 'register'])->name('register');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Protected routes
+// protected routes
 Route::middleware(['auth'])->group(function () {
     // Admin routes
     Route::middleware(['role:Admin'])->group(function () {
@@ -58,7 +58,8 @@ Route::middleware(['auth'])->group(function () {
        //event and detail
         Route::get('/event/index', [EventController::class, 'event']);
         Route::get('/event/index/form', [EventController::class, 'createevent'])->name('event.create');
-        Route::post('/event/add', [EventController::class, 'storeevent'])->name('event.store');
+        Route::post('/event/index/add', [EventController::class, 'storeevent'])->name('event.store');
+        
         Route::get('/event/index/detail/{id}', [EventController::class, 'detail'])->name('event.detail');
 
         Route::put('/event/category/edit/{eventCategory}', [EventController::class, 'updatecategory'])->name('event.category.update');
@@ -71,7 +72,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/event/dashboard', [EventController::class, 'index'])->name('event.dashboard');
     });
 
-    // General user routes (hanya untuk role selain Admin dan EO)
+    //  user routes (hanya untuk role selain Admin dan EO)
     Route::middleware(['user'])->group(function () {
          //dashboard customer
          Route::get('/dashboard', [CustomerController::class, 'index'])->name('user.dashboard');
@@ -81,12 +82,11 @@ Route::middleware(['auth'])->group(function () {
          Route::post('/checkout', [CustomerController::class, 'checkoutstore'])->name('checkout.store');
          // pemesanan
          Route::get('/order', [CustomerController::class, 'order'])->name('order');
-         // Route::post('/pembayaran', [CustomerController::class, 'pembayaran'])->name('pembayaran');
+
          Route::get('/order/detail/{id}', [CustomerController::class, 'orderdetail'])->name('order.detail');
 
          Route::post('/handle-payment/{id}', [CustomerController::class, 'handlePayment'])->name('handlePayment');
          Route::get('/transactions', [CustomerController::class, 'transactions'])->name('transactions');
     });
-
 
 });
