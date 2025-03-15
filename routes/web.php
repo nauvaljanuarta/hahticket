@@ -58,7 +58,7 @@ Route::middleware(['auth'])->group(function () {
        //event and detail
         Route::get('/event/index', [EventController::class, 'event']);
         Route::get('/event/index/form', [EventController::class, 'createevent'])->name('event.create');
-        Route::post('/event/category/add', [EventController::class, 'storeevent'])->name('event.store');
+        Route::post('/event/index/add', [EventController::class, 'storeevent'])->name('event.store');
         Route::get('/event/index/detail/{id}', [EventController::class, 'detail'])->name('event.detail');
 
         Route::put('/event/category/edit/{eventCategory}', [EventController::class, 'updatecategory'])->name('event.category.update');

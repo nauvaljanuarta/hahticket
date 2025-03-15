@@ -99,7 +99,6 @@ class EventController extends Controller
                 'capacity' => $request->capacity,
             ]);
 
-                // Simpan event tickets
             foreach ($request->ticket_name as $index => $ticket_name) {
                 EventTicket::create([
                     'ticket_name' => $ticket_name,
