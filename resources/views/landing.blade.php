@@ -8,12 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Favicon icon-->
-    <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
+    <link rel="shortcut icon" type="image/png" href="../assets/images/logos/logoticket.png" />
 
     <!-- Core Css -->
     <link rel="stylesheet" href="../assets/css/styles.css" />
 
-    <title>Spi</title>
+    <title>Hahticket?!</title>
     <!-- Owl Carousel  -->
     <link rel="stylesheet" href="../assets/libs/owl.carousel/dist/assets/owl.carousel.min.css" />
     <link rel="stylesheet" href="../assets/libs/aos/dist/aos.css" />
@@ -29,7 +29,8 @@
             <nav class="navbar navbar-expand-lg py-0">
                 <div class="container">
                     <a class="navbar-brand me-0 py-0" href="../main/index.html">
-                        <img src="../assets/images/logos/logo-light.svg" alt="img-fluid" />
+                        <img src="../assets/images/logos/hahkecil1.svg" class="dark-logo" alt="Logo-light"
+                                style="width: 400px; height: auto;" />
                     </a>
                     <button class="navbar-toggler border-0 p-0 shadow-none" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
@@ -429,7 +430,7 @@
                         </ul>
                     </div>
                     <a class="d-none d-lg-block btn btn-primary fs-3 rounded btn-hover-shadow rounded-pill px-4 py-2"
-                        href="https://discord.com/invite/eMzE8F6Wqs" target="_blank">Login</a>
+                        href="http://127.0.0.1:8000/login">Login</a>
                 </div>
             </nav>
         </header>
