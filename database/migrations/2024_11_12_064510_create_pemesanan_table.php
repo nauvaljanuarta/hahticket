@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('pemesanan', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('event_ticket_id');
-            $table->integer('quantity');
             $table->string('status', 20);
+            $table->decimal('total', 10, 2);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('event_ticket_id')->references('id')->on('event_tickets');
+
+
         });
     }
 

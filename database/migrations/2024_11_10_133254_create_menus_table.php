@@ -16,7 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('id_level');
             $table->string('menu_name', 300);
             $table->string('menu_link', 300);
-            $table->string('menu_icon', 300);
+
+            $table->string('menu_icon', 300)->nullable();
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->string('delete_mark',1);
             $table->string('create_by', 30);
@@ -35,4 +36,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('menus');
     }
+
 };

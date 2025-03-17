@@ -29,7 +29,8 @@ class UserSeeder extends Seeder
                 'no_hp' => '081234567891',
                 'create_by' => 'system',
                 'update_by' => 'system',
-                'jenis_user_id' => 2, 
+                'jenis_user_id' => 2,
+
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -47,4 +48,3 @@ class UserSeeder extends Seeder
         ]);
     }
 }
-
