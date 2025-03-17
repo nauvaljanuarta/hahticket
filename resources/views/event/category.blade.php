@@ -20,7 +20,7 @@
                 <h4>Add New Category</h4>
             </div>
             <div class="card-body">
-                <form action="{{ route('event.store') }}" method="POST">
+                <form action="{{ route('event.category.store') }}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label for="category">Category Name</label>
@@ -78,7 +78,7 @@
                                         style="display:inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn">Delete</button>
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                     </form>
                                 </td>
                             </tr>

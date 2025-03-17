@@ -9,6 +9,7 @@ use App\Models\EventCategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class EventController extends Controller
 {
@@ -87,26 +88,28 @@ class EventController extends Controller
         if ($request->hasFile('pic')) {
             $picPath = $request->file('pic')->store('event_pics', 'public');
 
-            $event = Event::create([
-                'event_name' => $request->event_name,
-                'event_category' => $request->event_category,
-                'penyelenggara' => Auth::id(),
-                'description' => $request->description,
-                'event_date' => $request->event_date,
-                'event_link' => $request->event_link,
-                'location' => $request->location,
-                'pic' => $picPath,
-                'capacity' => $request->capacity,
-            ]);
+        $slug = Str::slug($request->event_name);
 
-            foreach ($request->ticket_name as $index => $ticket_name) {
-                EventTicket::create([
-                    'ticket_name' => $ticket_name,
-                    'description' => $request->ticket_description[$index] ?? '0',
-                    'event' => $event->id,
-                    'price' => $request->ticket_price[$index],
-                ]);
-            }
+        $event = Event::create([
+            'event_name' => $request->event_name,
+            'event_category' => $request->event_category,
+            'penyelenggara' => Auth::id(),
+            'description' => $request->description,
+            'event_date' => $request->event_date,
+            'event_link' => $slug,
+            'location' => $request->location,
+            'pic' => $picPath,
+            'capacity' => $request->capacity,
+        ]);
+
+        foreach ($request->ticket_name as $index => $ticket_name) {
+            EventTicket::create([
+                'ticket_name' => $ticket_name,
+                'description' => $request->ticket_description[$index] ?? '0',
+                'event' => $event->id,
+                'price' => $request->ticket_price[$index]
+            ]);
+        }
 
             return redirect('/event/index')->with('success', 'Event created successfully!');
         }
