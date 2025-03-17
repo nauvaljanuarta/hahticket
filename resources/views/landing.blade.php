@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-@extends('layout.main')
 
-@section('content')
-
-@endsection
 =======
 <!DOCTYPE html>
 <html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme">
@@ -1627,4 +1622,4 @@
 </body>
 
 </html>
->>>>>>> 53b758506da8af071e34755d3580a2e7dd1a92ab
+
