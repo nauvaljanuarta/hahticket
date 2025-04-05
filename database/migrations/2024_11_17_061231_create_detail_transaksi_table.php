@@ -14,14 +14,12 @@ return new class extends Migration
         Schema::create('detail_transaksi', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('transaksi_id');
-            $table->unsignedBigInteger('event_ticket_id');
             $table->unsignedBigInteger('pemesanan_event_ticket_id');
             $table->integer('quantity');
             $table->decimal('unit_price', 10, 2);
             $table->decimal('subtotal', 10, 2);
             $table->timestamps();
             $table->foreign('transaksi_id')->references('id')->on('transaksi');
-            $table->foreign('event_ticket_id')->references('id')->on('event_tickets');
             $table->foreign('pemesanan_event_ticket_id')->references('id')->on('pemesanan_event_ticket')->onDelete('cascade');
         });
 

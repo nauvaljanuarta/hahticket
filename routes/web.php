@@ -82,8 +82,8 @@ Route::middleware(['auth'])->group(function () {
 
          Route::get('/order/detail/{id}', [CustomerController::class, 'orderdetail'])->name('order.detail');
 
-         Route::post('/handle-payment/{id}', [CustomerController::class, 'handlePayment'])->name('handlePayment');
          Route::get('/transactions', [CustomerController::class, 'transactions'])->name('transactions');
+         Route::post('/handle-payment/{id}', [CustomerController::class, 'handlePayment'])->name('handlePayment');
     });
 
 });

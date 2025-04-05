@@ -152,22 +152,19 @@ class CustomerController extends Controller
 
     public function handlePayment($id)
     {
-        // Temukan pemesanan berdasarkan ID
+
         $order = Pemesanan::findOrFail($id);
 
-        // Update status pemesanan menjadi 'Paid'
         $order->status = 'Paid';
         $order->save();
 
-        // Buat transaksi baru
         $transaksi = new Transaksi();
         $transaksi->pemesanan_id = $order->id;
-        $transaksi->jenis_pembayaran = 1; // Ganti sesuai dengan ID jenis pembayaran
+        $transaksi->jenis_pembayaran = 2;
         $transaksi->jumlah = $order->total;
         $transaksi->status = 'Paid';
         $transaksi->save();
 
-        // Masukkan detail transaksi untuk setiap tiket dalam pemesanan
         foreach ($order->eventTickets as $ticket) {
             $pemesananEventTicket = PemesananEventTicket::where('pemesanan_id', $order->id)
                 ->where('event_ticket_id', $ticket->id)
@@ -184,7 +181,6 @@ class CustomerController extends Controller
             }
         }
 
-        // Redirect dengan pesan sukses
         return redirect()->back()->with('success', 'Pembayaran berhasil diproses.');
     }
 
@@ -192,7 +188,7 @@ class CustomerController extends Controller
     {
         $assignedMenus = Auth::user()->jenisuser->menus()->pluck('menus.id')->toArray();
         $menus = Menu::with('children')->whereNull('parent_id')->get();
-        $user = Auth::user();   
+        $user = Auth::user();
         $transaksi = Transaksi::whereHas('pemesanan', function ($query) use ($user) {
             $query->where('user_id', $user->id);
         })->with(['pemesanan', 'jenisPembayaran'])->get();
