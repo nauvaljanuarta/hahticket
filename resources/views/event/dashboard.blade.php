@@ -147,34 +147,34 @@
                                 <li class="ms-n2">
                                     <a href="javascript:void(0)" class="">
                                         <img src="../assets/images/profile/user-2.jpg"
-                                            class="rounded-circle border border-2 border-white" width="40"
+                                            class="rounded-circle border border-white" width="40"
                                             height="40" alt="">
                                     </a>
                                 </li>
                                 <li class="ms-n2">
                                     <a href="javascript:void(0)" class="">
                                         <img src="../assets/images/profile/user-3.jpg"
-                                            class="rounded-circle border border-2 border-white" width="40"
+                                            class="rounded-circle border border-white" width="40"
                                             height="40" alt="">
                                     </a>
                                 </li>
                                 <li class="ms-n2">
                                     <a href="javascript:void(0)" class="">
                                         <img src="../assets/images/profile/user-4.jpg"
-                                            class="rounded-circle border border-2 border-white" width="40"
+                                            class="rounded-circle border border-white" width="40"
                                             height="40" alt="">
                                     </a>
                                 </li>
                                 <li class="ms-n2">
                                     <a href="javascript:void(0)" class="">
                                         <img src="../assets/images/profile/user-5.jpg"
-                                            class="rounded-circle border border-2 border-white" width="40"
+                                            class="rounded-circle border-2 border-white" width="40"
                                             height="40" alt="">
                                     </a>
                                 </li>
                                 <li class="ms-n2">
                                     <a href="javascript:void(0)"
-                                        class="bg-primary-subtle rounded-circle border border-2 border-white d-flex align-items-center justify-content-center round-40">
+                                        class="bg-primary-subtle rounded-circle border border-white d-flex align-items-center justify-content-center round-40">
                                         +8
                                     </a>
                                 </li>

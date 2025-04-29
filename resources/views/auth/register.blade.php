@@ -13,7 +13,7 @@
     <!-- Core Css -->
     <link rel="stylesheet" href="../assets/css/styles.css" />
 
-    <title>Spike Bootstrap Admin</title>
+    <title>hahticket?!</title>
 </head>
 
 <body>

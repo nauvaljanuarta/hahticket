@@ -43,12 +43,10 @@
                             </button>
 
                             <!-- Bayar Button -->
-
                                 <form action="{{ route('handlePayment', $order->id) }}" method="POST">
                                     @csrf
                                     <button type="submit" class="btn btn-success btn-sm">Bayar</button>
                                 </form>
-
                         </div>
                     </div>
                 </div>

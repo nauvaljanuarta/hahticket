@@ -7,7 +7,6 @@ use App\Models\Event;
 use App\Models\EventTicket;
 use App\Models\EventCategory;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
